@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 		    this.setContentPane(pan);
 		    this.setContentPane(new Panneau());
 		    this.setVisible(true);
-		    hello;
 		  }
 
 }
