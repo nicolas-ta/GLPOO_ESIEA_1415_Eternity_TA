@@ -12,11 +12,12 @@ import javax.swing.JPanel;
 		    setAlwaysOnTop(false);
 		    //Instanciation d'un objet JPanel
 		    JPanel pan = new JPanel();
-		    //Définition de sa couleur de fond
+		    //DÃ©finition de sa couleur de fond
 		    pan.setBackground(Color.RED);    
 		    this.setContentPane(pan);
 		    this.setContentPane(new Panneau());
 		    this.setVisible(true);
+		    hello;
 		  }
 
 }
