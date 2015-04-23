@@ -1,0 +1,35 @@
+A faire :
+
+	-	Fonction initialisation 	Gabriel
+	-	Vérification		Max
+	-	Timer			Nicolas
+	-	Faire les motifs 	Jérôme		
+	-	Interface Graphique :
+		o	Les bases	Hassan / Lamya
+		o	Le menu 1	?
+		o	Le menu 2	?
+		o	L’initialisation	?
+		o	Drag and Drop	?
+
+Bonus (à faire) :
+	-	Timer			
+	-	Sauvegarde de temps
+	-	Initialisation
+	-	Pause (arrêt de temps + afficher en pleine page (« Alors on prend une pause ? »)
+	-	Sauvegarder le score
+	-	Sauvegarder le plateau
+
+Il y a trois Fenêtre à faire : 
+	-	L’interface où le jeu va se dérouler
+	-	Le menu 1 (quand on lance le jeu)
+	-	Le menu 2 (quand on fait pause )
+
+Menu 1 :
+	-	Jouer
+	-	Reprendre la partie Sauvegarder
+	-	Meilleur Score
+Menu 2 :
+	-	Reprendre la Partie
+	-	Reprendre la partie Sauvegarder
+	-	Meilleur Score
+
