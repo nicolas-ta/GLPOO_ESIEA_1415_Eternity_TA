@@ -49,9 +49,19 @@ public class MasterTable {
 	
 	//Elle mélange le tableau 
 	public void fctMelangeur(){
-		
+		int i,j; 
+		int swap;
+		for(int k=0;k=<16;k++){
+		i =(int)(Math.random() * 3);
+		j = (int)(Math.random ()* 3);
+			
+		swap=masterTable[i][j];
+		masterTable[i][j]= masterTable[j][i];
+		masterTable[j][i]= swap;
+		}
+		}
 	}
 	
 	
-}
+
 
