@@ -68,17 +68,99 @@ public class MasterTable {
 	//Initialise le tableau. Chaque case est remplie par une piece qui est composé grâce à initPiece
 		MasterTable (){
 			
-			tabMotif[0]= Motif.MOTIF_0;
-			tabMotif[1]= Motif.MOTIF_1;
-			tabMotif[2]= Motif.MOTIF_2;
-			tabMotif[3]= Motif.MOTIF_3;
-			tabMotif[4]= Motif.MOTIF_4;
-			
-			
-			for(int i = 0 ; i<4 ; i++){
+			/*for(int i = 0 ; i<4 ; i++){
 				for(int j = 0 ; j<4 ; j++)
 					masterTable [i][j] = initPiece(i,j);
-			}
+			}*/
+
+			//Piece 0 0
+			masterTable[0][0].motif[0] = Motif.MOTIF_0;
+			masterTable[0][0].motif[1] = Motif.MOTIF_0;
+			masterTable[0][0].motif[2] = Motif.MOTIF_2;
+			masterTable[0][0].motif[3] = Motif.MOTIF_1;
+			//Piece 0 1
+			masterTable[0][1].motif[0] = Motif.MOTIF_0;
+			masterTable[0][1].motif[1] = Motif.MOTIF_1;
+			masterTable[0][1].motif[2] = Motif.MOTIF_3;
+			masterTable[0][1].motif[3] = Motif.MOTIF_1;
+			//Piece 0 2
+			masterTable[0][2].motif[0] = Motif.MOTIF_0;
+			masterTable[0][2].motif[1] = Motif.MOTIF_1;
+			masterTable[0][2].motif[2] = Motif.MOTIF_4;
+			masterTable[0][2].motif[3] = Motif.MOTIF_1;
+			//Piece 0 3
+			masterTable[0][3].motif[0] = Motif.MOTIF_0;
+			masterTable[0][3].motif[1] = Motif.MOTIF_1;
+			masterTable[0][3].motif[2] = Motif.MOTIF_2;
+			masterTable[0][3].motif[3] = Motif.MOTIF_0;
+					
+			
+			//Piece 1 0
+			masterTable[1][0].motif[0] = Motif.MOTIF_2;
+			masterTable[1][0].motif[1] = Motif.MOTIF_0;
+			masterTable[1][0].motif[2] = Motif.MOTIF_1;
+			masterTable[1][0].motif[3] = Motif.MOTIF_3;
+			//Piece 1 1
+			masterTable[1][1].motif[0] = Motif.MOTIF_3;
+			masterTable[1][1].motif[1] = Motif.MOTIF_3;
+			masterTable[1][1].motif[2] = Motif.MOTIF_4;
+			masterTable[1][1].motif[3] = Motif.MOTIF_3;
+			//Piece 1 2
+			masterTable[1][2].motif[0] = Motif.MOTIF_4;
+			masterTable[1][2].motif[1] = Motif.MOTIF_3;
+			masterTable[1][2].motif[2] = Motif.MOTIF_3;
+			masterTable[1][2].motif[3] = Motif.MOTIF_4;
+			//Piece 1 3
+			masterTable[1][3].motif[0] = Motif.MOTIF_2;
+			masterTable[1][3].motif[1] = Motif.MOTIF_4;
+			masterTable[1][3].motif[2] = Motif.MOTIF_2;
+			masterTable[1][3].motif[3] = Motif.MOTIF_0;
+
+			
+			//Piece 2 0
+			masterTable[2][0].motif[0] = Motif.MOTIF_1;
+			masterTable[2][0].motif[1] = Motif.MOTIF_0;
+			masterTable[2][0].motif[2] = Motif.MOTIF_2;
+			masterTable[2][0].motif[3] = Motif.MOTIF_3;
+			//Piece 2 1
+			masterTable[2][1].motif[0] = Motif.MOTIF_4;
+			masterTable[2][1].motif[1] = Motif.MOTIF_3;
+			masterTable[2][1].motif[2] = Motif.MOTIF_3;
+			masterTable[2][1].motif[3] = Motif.MOTIF_4;
+			//Piece 2 2
+			masterTable[2][2].motif[0] = Motif.MOTIF_3;
+			masterTable[2][2].motif[1] = Motif.MOTIF_4;
+			masterTable[2][2].motif[2] = Motif.MOTIF_4;
+			masterTable[2][2].motif[3] = Motif.MOTIF_4;
+			//Piece 2 3
+			masterTable[2][3].motif[0] = Motif.MOTIF_2;
+			masterTable[2][3].motif[1] = Motif.MOTIF_4;
+			masterTable[2][3].motif[2] = Motif.MOTIF_1;
+			masterTable[2][3].motif[3] = Motif.MOTIF_0;
+
+			
+			//Piece 3 0
+			masterTable[3][0].motif[0] = Motif.MOTIF_2;
+			masterTable[3][0].motif[1] = Motif.MOTIF_0;
+			masterTable[3][0].motif[2] = Motif.MOTIF_0;
+			masterTable[3][0].motif[3] = Motif.MOTIF_2;
+			//Piece 3 1
+			masterTable[3][1].motif[0] = Motif.MOTIF_3;
+			masterTable[3][1].motif[1] = Motif.MOTIF_2;
+			masterTable[3][1].motif[2] = Motif.MOTIF_0;
+			masterTable[3][1].motif[3] = Motif.MOTIF_2;
+			//Piece 3 2
+			masterTable[3][2].motif[0] = Motif.MOTIF_4;
+			masterTable[3][2].motif[1] = Motif.MOTIF_2;
+			masterTable[3][2].motif[2] = Motif.MOTIF_0;
+			masterTable[3][2].motif[3] = Motif.MOTIF_1;
+			//Piece 3 3
+			masterTable[3][3].motif[0] = Motif.MOTIF_1;
+			masterTable[3][3].motif[1] = Motif.MOTIF_1;
+			masterTable[3][3].motif[2] = Motif.MOTIF_0;
+			masterTable[3][3].motif[3] = Motif.MOTIF_0;
+			
+			
 		}
 	
 		
