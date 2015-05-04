@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 		    this.setSize(1024, 768);
 		    this.setLocationRelativeTo(null);
 		    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    setResizable(true);
+		    setResizable(false);
 		    setAlwaysOnTop(false);
 		    //Instanciation d'un objet JPanel
 		    JPanel pan = new JPanel();
