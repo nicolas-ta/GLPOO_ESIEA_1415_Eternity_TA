@@ -1,3 +1,4 @@
+package Graphic;
 import java.awt.Color; 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ import javax.swing.*;
 		    JPanel pan = new JPanel();  
 		    pan.add(new Panneau());
 		    pan.add(new PanneauScore());
+		    pan.add(new PanneauDebut());
 		    this.setContentPane(pan);
 		    this.setVisible(true);
 		  }
