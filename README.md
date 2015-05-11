@@ -1,3 +1,9 @@
+
+#A l'avis des plagieurs de git
+Attention sinon on contacte Yassine Triki la star montante du freefight
+
+
+
 #Lien utiles/important
 Pour faire un tableau contenant les images du jeux : GridLayout
 
