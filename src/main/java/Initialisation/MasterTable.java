@@ -60,7 +60,7 @@ public class MasterTable {
 	
 	
 	//Initialise le tableau. Chaque case est remplie par une piece qui est composé grâce à initPiece
-		MasterTable (){
+		public MasterTable (){
 			
 			
 
@@ -85,7 +85,7 @@ public class MasterTable {
 
 			
 			//Piece 2 0
-			masterTable[2][0] = new Piece(Motif.MOTIF_1, Motif.MOTIF_0, Motif.MOTIF_2, Motif.MOTIF_1);
+			masterTable[2][0] = new Piece(Motif.MOTIF_1, Motif.MOTIF_0, Motif.MOTIF_2, Motif.MOTIF_3);
 			//Piece 2 1
 			masterTable[2][1] = new Piece(Motif.MOTIF_4, Motif.MOTIF_3, Motif.MOTIF_3, Motif.MOTIF_4);
 			//Piece 2 2
@@ -145,7 +145,13 @@ public class MasterTable {
 			    	}
 			      }
 			      
-			      
+			      /*
+			       
+			       for(int i=0;i<tab.length()>i;i++)
+						for(int j=0;i<tab[i].length()>j;j++)
+							masterTable[i][j]=null; 
+			       
+			        */
 			      dos.close();
 			      
 			      
@@ -240,7 +246,52 @@ public class MasterTable {
 			
 		}
 		
-		
+		public boolean fctVerif(){
+			boolean verif = true;
+			
+			for(int i = 0 ; i < nbLigne ; i++){
+				for(int j = 0 ; j< nbColonne ; j++){
+					System.out.println("boucle i" + " " + i);
+					System.out.println("    boucle j" + " " + j);
+					if(i == 0 && masterTable[i][j].getSymboleNum(0)!=0){
+						System.out.println("Fail 1");
+						verif = false;
+						break;
+					}
+					if(j == 0 && masterTable[i][j].getSymboleNum(1)!=0 ){
+						System.out.println("Fail 2");
+						verif = false;
+						break;
+					}
+					if(i == nbColonne-1 && masterTable[i][j].getSymboleNum(2)!=0){
+						System.out.println("Fail 3 ");
+						verif = false;
+						break;
+					}
+					if(j == nbLigne-1 && masterTable[i][j].getSymboleNum(3)!=0 ){
+						System.out.println("Fail 4 ");
+						verif = false;
+						break;
+					}
+					
+					if( i !=nbLigne-1 && masterTable[i][j].getSymboleNum(2) != masterTable[i+1][j].getSymboleNum(0)){
+						System.out.println("Fail 5");
+						verif = false;
+						break;
+					}
+					if( j !=nbColonne-1 && masterTable[i][j].getSymboleNum(3) != masterTable[i][j+1].getSymboleNum(1)){
+						System.out.println("Fail 6");
+						verif = false;
+						break;
+					}
+					
+				}
+				if( verif == false)
+					break;
+			}
+			
+			return verif;
+		}
 	}
 	
 	

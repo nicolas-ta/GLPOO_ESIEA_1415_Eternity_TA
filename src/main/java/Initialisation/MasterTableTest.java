@@ -41,14 +41,23 @@ public class MasterTableTest {
 		
 		
 		
-		MasterTable initable = new MasterTable();
+		MasterTable initable= new MasterTable();
+		if(initable.fctVerif() == false){
+			System.out.println("raté");
+		}
+		else{
+			System.out.println("réussi");
+		}
 		//System.out.println("Tableau initialisé : "+ initable.getSymbolePiece(1,0));//mal codé, je voudrai faire initable.mastertable[0][0].getSymbolePiece(0,0) Comment fait on ?
 		//initable.fctMelangeur();
 		/*System.out.println("Tableau mélangé : " + initable.getSymbolePiece(1,0));//mal codé, je voudrai faire initable.mastertable[0][0].getSymbolePiece(0,0) Comment fait on ?
 		System.out.println(initable.getSymbolePiece(2,2));//mal codé, je voudrai faire initable.mastertable[0][0].getSymbolePiece(0,0) Comment fait on ?
 		
 		*/
+	//	initable.masterTable[0][0];
 		initable.fctSauvegarder();
+		
 		initable.fctRestaurer();
+		
 	}
 }
