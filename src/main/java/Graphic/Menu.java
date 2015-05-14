@@ -68,7 +68,7 @@ public class Menu extends JFrame {
     this.setJMenuBar(menuBar);
     
     this.setTitle("Eternity Game");
-    this.setSize(1024, 768);
+    this.setSize(1280, 768);
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setResizable(false);

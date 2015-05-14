@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class Panneau extends JPanel { 
   public void paintComponent(Graphics g){
-    this.setSize(512,768); 
+    this.setSize(768,768); 
     this.setLocation(0, 0);
     Graphics2D g2d = (Graphics2D)g;       
     GradientPaint gp,gp2;

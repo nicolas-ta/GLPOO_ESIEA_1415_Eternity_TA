@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class PanneauDebut extends JPanel {
 	public void paintComponent(Graphics g){
 	    this.setSize(512,618); 
-	    this.setLocation(512, 150);
+	    this.setLocation(768, 150);
 	    Graphics2D g2d = (Graphics2D)g;       
 	    GradientPaint gp,gp2;
 	    gp = new GradientPaint(0, 0,Color.BLACK, 50, 50, Color.WHITE, false);

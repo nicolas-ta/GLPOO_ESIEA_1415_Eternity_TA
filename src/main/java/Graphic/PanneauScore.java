@@ -18,7 +18,7 @@ public class PanneauScore extends JPanel {
 	public void paintComponent(Graphics g){
 	
     this.setSize(512,150); 
-    this.setLocation(512, 0);
+    this.setLocation(768, 0);
     //this.setBackground(Color.BLACK);
     Graphics2D g2d = (Graphics2D)g;       
     GradientPaint gp,gp2;
