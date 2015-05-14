@@ -78,7 +78,7 @@ public class chrono
 				texte=debut.getText();
 				if(texte.compareTo("COMMENCE LE JEU INFINITY YEAH")==0)
 				{
-					debut.setText("Non en fait il et trop nul arrête ");
+					debut.setText("Non en fait il est trop nul arrête ");
 					timer1.start();
 				}
 				else if(texte.compareTo("Stop ")==0)

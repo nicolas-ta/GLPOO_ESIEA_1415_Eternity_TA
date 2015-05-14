@@ -5,7 +5,9 @@ import javax.swing.JPanel;
 import java.awt.*;
 import javax.swing.*;
 	public class Fenetre extends JFrame {
+		
 		  public Fenetre(){
+			Menu menu = new Menu();
 		    this.setTitle("Eternity Game");
 		    this.setSize(1024, 768);
 		    this.setLocationRelativeTo(null);
