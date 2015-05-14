@@ -1,106 +1,54 @@
 package Initialisation;
 
+
 public class MasterTableTest {
-	
-	public Piece masterTableTest[][] = new Piece[4][4];
-	//J'initialise tout le tableau à la "main" c-a-d en retnrant toute les valeurs du tableau une par une 
-	public void fctInit(){
-		//
-		
-		//Piece 0 0
-		masterTableTest[0][0].motif[0] = Motif.MOTIF_0;
-		masterTableTest[0][0].motif[1] = Motif.MOTIF_0;
-		masterTableTest[0][0].motif[2] = Motif.MOTIF_2;
-		masterTableTest[0][0].motif[3] = Motif.MOTIF_1;
-		//Piece 0 1
-		masterTableTest[0][1].motif[0] = Motif.MOTIF_0;
-		masterTableTest[0][1].motif[1] = Motif.MOTIF_1;
-		masterTableTest[0][1].motif[2] = Motif.MOTIF_3;
-		masterTableTest[0][1].motif[3] = Motif.MOTIF_1;
-		//Piece 0 2
-		masterTableTest[0][2].motif[0] = Motif.MOTIF_0;
-		masterTableTest[0][2].motif[1] = Motif.MOTIF_1;
-		masterTableTest[0][2].motif[2] = Motif.MOTIF_4;
-		masterTableTest[0][2].motif[3] = Motif.MOTIF_1;
-		//Piece 0 3
-		masterTableTest[0][3].motif[0] = Motif.MOTIF_0;
-		masterTableTest[0][3].motif[1] = Motif.MOTIF_1;
-		masterTableTest[0][3].motif[2] = Motif.MOTIF_2;
-		masterTableTest[0][3].motif[3] = Motif.MOTIF_0;
-				
-		
-		//Piece 1 0
-		masterTableTest[1][0].motif[0] = Motif.MOTIF_2;
-		masterTableTest[1][0].motif[1] = Motif.MOTIF_0;
-		masterTableTest[1][0].motif[2] = Motif.MOTIF_1;
-		masterTableTest[1][0].motif[3] = Motif.MOTIF_3;
-		//Piece 1 1
-		masterTableTest[1][1].motif[0] = Motif.MOTIF_3;
-		masterTableTest[1][1].motif[1] = Motif.MOTIF_3;
-		masterTableTest[1][1].motif[2] = Motif.MOTIF_4;
-		masterTableTest[1][1].motif[3] = Motif.MOTIF_3;
-		//Piece 1 2
-		masterTableTest[1][2].motif[0] = Motif.MOTIF_4;
-		masterTableTest[1][2].motif[1] = Motif.MOTIF_3;
-		masterTableTest[1][2].motif[2] = Motif.MOTIF_3;
-		masterTableTest[1][2].motif[3] = Motif.MOTIF_4;
-		//Piece 1 3
-		masterTableTest[1][3].motif[0] = Motif.MOTIF_2;
-		masterTableTest[1][3].motif[1] = Motif.MOTIF_4;
-		masterTableTest[1][3].motif[2] = Motif.MOTIF_2;
-		masterTableTest[1][3].motif[3] = Motif.MOTIF_0;
 
-		
-		//Piece 2 0
-		masterTableTest[2][0].motif[0] = Motif.MOTIF_1;
-		masterTableTest[2][0].motif[1] = Motif.MOTIF_0;
-		masterTableTest[2][0].motif[2] = Motif.MOTIF_2;
-		masterTableTest[2][0].motif[3] = Motif.MOTIF_3;
-		//Piece 2 1
-		masterTableTest[2][1].motif[0] = Motif.MOTIF_4;
-		masterTableTest[2][1].motif[1] = Motif.MOTIF_3;
-		masterTableTest[2][1].motif[2] = Motif.MOTIF_3;
-		masterTableTest[2][1].motif[3] = Motif.MOTIF_4;
-		//Piece 2 2
-		masterTableTest[2][2].motif[0] = Motif.MOTIF_3;
-		masterTableTest[2][2].motif[1] = Motif.MOTIF_4;
-		masterTableTest[2][2].motif[2] = Motif.MOTIF_4;
-		masterTableTest[2][2].motif[3] = Motif.MOTIF_4;
-		//Piece 2 3
-		masterTableTest[2][3].motif[0] = Motif.MOTIF_2;
-		masterTableTest[2][3].motif[1] = Motif.MOTIF_4;
-		masterTableTest[2][3].motif[2] = Motif.MOTIF_1;
-		masterTableTest[2][3].motif[3] = Motif.MOTIF_0;
-
-		
-		//Piece 3 0
-		masterTableTest[3][0].motif[0] = Motif.MOTIF_2;
-		masterTableTest[3][0].motif[1] = Motif.MOTIF_0;
-		masterTableTest[3][0].motif[2] = Motif.MOTIF_0;
-		masterTableTest[3][0].motif[3] = Motif.MOTIF_2;
-		//Piece 3 1
-		masterTableTest[3][1].motif[0] = Motif.MOTIF_3;
-		masterTableTest[3][1].motif[1] = Motif.MOTIF_2;
-		masterTableTest[3][1].motif[2] = Motif.MOTIF_0;
-		masterTableTest[3][1].motif[3] = Motif.MOTIF_2;
-		//Piece 3 2
-		masterTableTest[3][2].motif[0] = Motif.MOTIF_4;
-		masterTableTest[3][2].motif[1] = Motif.MOTIF_2;
-		masterTableTest[3][2].motif[2] = Motif.MOTIF_0;
-		masterTableTest[3][2].motif[3] = Motif.MOTIF_1;
-		//Piece 3 3
-		masterTableTest[3][3].motif[0] = Motif.MOTIF_1;
-		masterTableTest[3][3].motif[1] = Motif.MOTIF_1;
-		masterTableTest[3][3].motif[2] = Motif.MOTIF_0;
-		masterTableTest[3][3].motif[3] = Motif.MOTIF_0;
-		
-		
+	public static final int  nbColonne = 4;
+	public static final int nbLigne = 4;
+	public Piece restaureTable[][] = new Piece[4][4];
 	
-		
-	}
+	
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
+		//Test de l'énumération Motif
+	/*	Motif testMotif_0 = Motif.MOTIF_0;
+		Motif testMotif_1 = Motif.MOTIF_1;
+		Motif testMotif_2 = Motif.MOTIF_2;
+		Motif testMotif_3 = Motif.MOTIF_3;
+		*/
+		//test de la Class Piece
+	/*	Piece testPiece = new Piece(testMotif_0, testMotif_1, testMotif_2, testMotif_3);
+		System.out.println();
+		System.out.println(testPiece.getSymboleNum(0));
+		System.out.println(testPiece.getSymboleNum(1));
+		System.out.println(testPiece.getSymboleNum(2));
+		System.out.println(testPiece.getSymboleNum(3));*/
+		
+		//testPiece.fctSauvegardeEncapsule();
+		
+		
+		//testPiece.fctPieceRetourner();
+		/*
+		System.out.println("\n la piece est retournée");
+		System.out.println(testPiece.getSymboleNum(0));
+		System.out.println(testPiece.getSymboleNum(1));
+		System.out.println(testPiece.getSymboleNum(2));
+		System.out.println(testPiece.getSymboleNum(3));
+		*/
+		
+		
+		
+		
+		
+		MasterTable initable = new MasterTable();
+		//System.out.println("Tableau initialisé : "+ initable.getSymbolePiece(1,0));//mal codé, je voudrai faire initable.mastertable[0][0].getSymbolePiece(0,0) Comment fait on ?
+		//initable.fctMelangeur();
+		/*System.out.println("Tableau mélangé : " + initable.getSymbolePiece(1,0));//mal codé, je voudrai faire initable.mastertable[0][0].getSymbolePiece(0,0) Comment fait on ?
+		System.out.println(initable.getSymbolePiece(2,2));//mal codé, je voudrai faire initable.mastertable[0][0].getSymbolePiece(0,0) Comment fait on ?
+		
+		*/
+		initable.fctSauvegarder();
+		initable.fctRestaurer();
 	}
-
 }

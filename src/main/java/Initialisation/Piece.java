@@ -1,8 +1,5 @@
 package Initialisation;
-
-
 import java.io.File;
-
 
 public class Piece {
 	
@@ -15,17 +12,37 @@ public class Piece {
 		motif[2] = motif_2;
 		motif[3] = motif_3;
 	}
+	
 	/*
 	 Il faudra peut ï¿½tre faire une fonction d'ï¿½change de motif entre 2 motifs d'un mï¿½me tableau 
 	 */
 	
 	
-	
-	public String getSymboleNum(int num){
+	/*Fonction qui renvoie le nom du symbole du motif*/
+	public int getSymboleNum(int num){
 		return this.motif[num].getSymbole();
 	}
+	
+
+	/*Fonction qui renvoie le fichier du motif*/
 	public File getFichierNum(int num){
 		return this.motif[num].getFichier();
 	}
+	// fait tourner la pièce dans le sens oposé d'une horloge
+	public void fctPieceRetourner(){
+		Motif swap;
+		
+		swap = this.motif[0];
+		this.motif[0] = this.motif[1];
+		this.motif[1] = this.motif[2];
+		this.motif[2] = this.motif[3];
+		this.motif[3] = swap;
+	}
+	
+	
+	
+	
+	
+	
 	
 }

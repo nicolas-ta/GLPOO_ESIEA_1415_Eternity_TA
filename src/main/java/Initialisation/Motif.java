@@ -4,16 +4,16 @@ import java.io.File;
 
 
 public enum Motif {
-	MOTIF_0("NOIR", null),MOTIF_1("BLANC", null),MOTIF_2("JAUNE", null),MOTIF_3("ORANGE", null),MOTIF_4("BLEU", null),MOTIF_5("ROUGE",null);
-	private String symbole;
+	MOTIF_0(0, null),MOTIF_1(1, null),MOTIF_2(2, null),MOTIF_3(3, null),MOTIF_4(4, null),MOTIF_5(5,null);
+	private int symbole;
 	private File f;
 	
-	Motif(String symbole, File f){
+	Motif(int symbole, File f){
 		this.symbole= symbole;
 		this.f=f;
 	}
 	
-	public String getSymbole(){
+	public int getSymbole(){
 		return this.symbole;
 	}
 	
@@ -21,3 +21,4 @@ public enum Motif {
 		return this.f;
 	}
 }
+

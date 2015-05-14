@@ -1,14 +1,20 @@
 package Initialisation;
 
+//Packages à importer afin d'utiliser l'objet File
+import java.io.*;
+
 
 
 public class MasterTable {
 		public Piece masterTable[][] = new Piece[4][4];
-		public Motif tabMotif[]=new Motif[5];
+		public Piece restaureTable[][] = new Piece[4][4];
+		public Motif tabMotifRestaure[]= new Motif[4];
 		public int nbColonne = 4;
 		public int nbLigne = 4;
-	 
-	
+		public int nbCase = nbColonne * nbLigne;
+		//public Motif motiftab[] = new Motif[4];
+		
+
 		 public int fctRandom(){
 			 int random = (int)(Math.random() * (5-0));
 			 return random;
@@ -49,136 +55,176 @@ public class MasterTable {
 				
 		 }
 		 
-		//Fonction qui retourne les pièce dans le sens inverse d'une horloge
-			public Piece fctPieceRetourner( Piece piece ){
-				Motif swap;
-				
-				swap = piece.motif[0];
-				piece.motif[0] = piece.motif[1];
-				piece.motif[1] = piece.motif[2];
-				piece.motif[2] = piece.motif[3];
-				piece.motif[3] = swap;
-				
-				
-				return piece;
-			}
+
 
 	
 	
 	//Initialise le tableau. Chaque case est remplie par une piece qui est composé grâce à initPiece
 		MasterTable (){
 			
-			/*for(int i = 0 ; i<4 ; i++){
-				for(int j = 0 ; j<4 ; j++)
-					masterTable [i][j] = initPiece(i,j);
-			}*/
+			
 
-			//Piece 0 0
-			masterTable[0][0].motif[0] = Motif.MOTIF_0;
-			masterTable[0][0].motif[1] = Motif.MOTIF_0;
-			masterTable[0][0].motif[2] = Motif.MOTIF_2;
-			masterTable[0][0].motif[3] = Motif.MOTIF_1;
+			masterTable[0][0] = new Piece(Motif.MOTIF_0, Motif.MOTIF_0, Motif.MOTIF_2, Motif.MOTIF_1);
 			//Piece 0 1
-			masterTable[0][1].motif[0] = Motif.MOTIF_0;
-			masterTable[0][1].motif[1] = Motif.MOTIF_1;
-			masterTable[0][1].motif[2] = Motif.MOTIF_3;
-			masterTable[0][1].motif[3] = Motif.MOTIF_1;
+			masterTable[0][1] = new Piece(Motif.MOTIF_0, Motif.MOTIF_1, Motif.MOTIF_3, Motif.MOTIF_1);
 			//Piece 0 2
-			masterTable[0][2].motif[0] = Motif.MOTIF_0;
-			masterTable[0][2].motif[1] = Motif.MOTIF_1;
-			masterTable[0][2].motif[2] = Motif.MOTIF_4;
-			masterTable[0][2].motif[3] = Motif.MOTIF_1;
+			masterTable[0][2] = new Piece(Motif.MOTIF_0, Motif.MOTIF_1, Motif.MOTIF_4, Motif.MOTIF_1);
 			//Piece 0 3
-			masterTable[0][3].motif[0] = Motif.MOTIF_0;
-			masterTable[0][3].motif[1] = Motif.MOTIF_1;
-			masterTable[0][3].motif[2] = Motif.MOTIF_2;
-			masterTable[0][3].motif[3] = Motif.MOTIF_0;
+			masterTable[0][3] = new Piece(Motif.MOTIF_0, Motif.MOTIF_1, Motif.MOTIF_2, Motif.MOTIF_0);
+
 					
 			
 			//Piece 1 0
-			masterTable[1][0].motif[0] = Motif.MOTIF_2;
-			masterTable[1][0].motif[1] = Motif.MOTIF_0;
-			masterTable[1][0].motif[2] = Motif.MOTIF_1;
-			masterTable[1][0].motif[3] = Motif.MOTIF_3;
+			masterTable[1][0] = new Piece(Motif.MOTIF_2, Motif.MOTIF_0, Motif.MOTIF_1, Motif.MOTIF_3);
 			//Piece 1 1
-			masterTable[1][1].motif[0] = Motif.MOTIF_3;
-			masterTable[1][1].motif[1] = Motif.MOTIF_3;
-			masterTable[1][1].motif[2] = Motif.MOTIF_4;
-			masterTable[1][1].motif[3] = Motif.MOTIF_3;
+			masterTable[1][1] = new Piece(Motif.MOTIF_3, Motif.MOTIF_3, Motif.MOTIF_4, Motif.MOTIF_3);
 			//Piece 1 2
-			masterTable[1][2].motif[0] = Motif.MOTIF_4;
-			masterTable[1][2].motif[1] = Motif.MOTIF_3;
-			masterTable[1][2].motif[2] = Motif.MOTIF_3;
-			masterTable[1][2].motif[3] = Motif.MOTIF_4;
+			masterTable[1][2] = new Piece(Motif.MOTIF_4, Motif.MOTIF_3, Motif.MOTIF_3, Motif.MOTIF_4);
 			//Piece 1 3
-			masterTable[1][3].motif[0] = Motif.MOTIF_2;
-			masterTable[1][3].motif[1] = Motif.MOTIF_4;
-			masterTable[1][3].motif[2] = Motif.MOTIF_2;
-			masterTable[1][3].motif[3] = Motif.MOTIF_0;
+			masterTable[1][3] = new Piece(Motif.MOTIF_2, Motif.MOTIF_4, Motif.MOTIF_2, Motif.MOTIF_0);
 
 			
 			//Piece 2 0
-			masterTable[2][0].motif[0] = Motif.MOTIF_1;
-			masterTable[2][0].motif[1] = Motif.MOTIF_0;
-			masterTable[2][0].motif[2] = Motif.MOTIF_2;
-			masterTable[2][0].motif[3] = Motif.MOTIF_3;
+			masterTable[2][0] = new Piece(Motif.MOTIF_1, Motif.MOTIF_0, Motif.MOTIF_2, Motif.MOTIF_1);
 			//Piece 2 1
-			masterTable[2][1].motif[0] = Motif.MOTIF_4;
-			masterTable[2][1].motif[1] = Motif.MOTIF_3;
-			masterTable[2][1].motif[2] = Motif.MOTIF_3;
-			masterTable[2][1].motif[3] = Motif.MOTIF_4;
+			masterTable[2][1] = new Piece(Motif.MOTIF_4, Motif.MOTIF_3, Motif.MOTIF_3, Motif.MOTIF_4);
 			//Piece 2 2
-			masterTable[2][2].motif[0] = Motif.MOTIF_3;
-			masterTable[2][2].motif[1] = Motif.MOTIF_4;
-			masterTable[2][2].motif[2] = Motif.MOTIF_4;
-			masterTable[2][2].motif[3] = Motif.MOTIF_4;
+			masterTable[2][2] = new Piece(Motif.MOTIF_3, Motif.MOTIF_4, Motif.MOTIF_4, Motif.MOTIF_4);
 			//Piece 2 3
-			masterTable[2][3].motif[0] = Motif.MOTIF_2;
-			masterTable[2][3].motif[1] = Motif.MOTIF_4;
-			masterTable[2][3].motif[2] = Motif.MOTIF_1;
-			masterTable[2][3].motif[3] = Motif.MOTIF_0;
+			masterTable[2][3] = new Piece(Motif.MOTIF_2, Motif.MOTIF_4, Motif.MOTIF_1, Motif.MOTIF_0);
+
 
 			
 			//Piece 3 0
-			masterTable[3][0].motif[0] = Motif.MOTIF_2;
-			masterTable[3][0].motif[1] = Motif.MOTIF_0;
-			masterTable[3][0].motif[2] = Motif.MOTIF_0;
-			masterTable[3][0].motif[3] = Motif.MOTIF_2;
+			masterTable[3][0] = new Piece(Motif.MOTIF_2, Motif.MOTIF_0, Motif.MOTIF_0, Motif.MOTIF_2);
 			//Piece 3 1
-			masterTable[3][1].motif[0] = Motif.MOTIF_3;
-			masterTable[3][1].motif[1] = Motif.MOTIF_2;
-			masterTable[3][1].motif[2] = Motif.MOTIF_0;
-			masterTable[3][1].motif[3] = Motif.MOTIF_2;
+			masterTable[3][1] = new Piece(Motif.MOTIF_3, Motif.MOTIF_2, Motif.MOTIF_0, Motif.MOTIF_2);
 			//Piece 3 2
-			masterTable[3][2].motif[0] = Motif.MOTIF_4;
-			masterTable[3][2].motif[1] = Motif.MOTIF_2;
-			masterTable[3][2].motif[2] = Motif.MOTIF_0;
-			masterTable[3][2].motif[3] = Motif.MOTIF_1;
+			masterTable[3][2] = new Piece(Motif.MOTIF_4, Motif.MOTIF_2, Motif.MOTIF_0, Motif.MOTIF_1);
 			//Piece 3 3
-			masterTable[3][3].motif[0] = Motif.MOTIF_1;
-			masterTable[3][3].motif[1] = Motif.MOTIF_1;
-			masterTable[3][3].motif[2] = Motif.MOTIF_0;
-			masterTable[3][3].motif[3] = Motif.MOTIF_0;
+			masterTable[3][3] = new Piece(Motif.MOTIF_1, Motif.MOTIF_1, Motif.MOTIF_0, Motif.MOTIF_0);
+
 			
 			
 		}
-	
+		/* renvoie le symbole du motif de la piece i j contenu dans le tableau*/
+		public int getSymboleNum(int i,int j, int num){
+			return masterTable[i][j].motif[num].getSymbole();
+		}
+		/* renvoie le symbole du motif de la piece i j contenu dans le tableau*/
+		public File getFichierNum(int i, int j, int num){
+			return masterTable[i][j].motif[num].getFichier();
+		}
+		
+		public String getSymbolePiece(int i,int j){
+			
+				return (masterTable[i][j].motif[0].getSymbole() + " " + masterTable[i][j].motif[1].getSymbole() + " " + masterTable[i][j].motif[2].getSymbole() + " " + masterTable[i][j].motif[3].getSymbole());
+			
+		}
 		
 		
+		
+			
+			
+		
+		public void fctSauvegarder(){
+			DataOutputStream dos;
+			try {
+			      dos = new DataOutputStream(
+			              new BufferedOutputStream(
+			                new FileOutputStream(
+			                  new File("PORSCHE.txt"))));
+			      	
+			      for(int i=0 ; i < nbLigne ; i++){
+			    	for(int j=0; j < nbColonne ; j++)  {
+				      for(int k = 0 ; k < 4 ; k++){
+				    	  
+				    	  dos.writeInt(masterTable[i][j].motif[k].getSymbole());
+							
+				      }
+			    	}
+			      }
+			      
+			      
+			      dos.close();
+			      
+			      
+			  } catch (FileNotFoundException e) {
+			      e.printStackTrace();
+			    } catch (IOException e) {
+			      e.printStackTrace();
+			    }	
+			
+		}
+		
+		
+		public void fctRestaurer(){
+			DataInputStream dis;
+			int a;
+			try {
+			      
+			    
+			      dis = new DataInputStream(
+			              new BufferedInputStream(
+			                new FileInputStream(
+			                  new File("PORSCHE.txt"))));
+			      for(int i = 0; i < nbLigne; i++){
+			    	  for(int j = 0; j< nbColonne ; j++){
+			    		  for(int k = 0 ; k < 4 ; k++){
+			    			 
+			    			  a =dis.readInt();
+			    			//  System.out.println(a);
+			    			  	switch(a){
+				    			  	case 0:
+				    			  		tabMotifRestaure[k] = Motif.MOTIF_0;
+				    			  		break;
+				    			  	case 1:
+				    			  		tabMotifRestaure[k] = Motif.MOTIF_1;
+				    			  		break;
+				    			  	case 2:
+				    			  		tabMotifRestaure[k] = Motif.MOTIF_2;
+				    			  		break;
+				    			  	case 3:
+				    			  		tabMotifRestaure[k] = Motif.MOTIF_3;
+				    			  		break;
+				    			  	case 4:
+				    			  		tabMotifRestaure[k] = Motif.MOTIF_4;
+				    			  		break;
+				    			  	case 5:
+				    			  		tabMotifRestaure[k] = Motif.MOTIF_5;
+				    			  		break;
+				    			  	default:
+				    			  	    System.out.println("Il faut davantage travailler.");
+			    			  	}
+						      } 
+			    		  
+			    		  restaureTable[i][j] = new Piece(tabMotifRestaure[0], tabMotifRestaure[1], tabMotifRestaure[2],tabMotifRestaure[3]);
+			    	  }
+			      }
+			      
+			      
+			  } catch (FileNotFoundException e) {
+			      e.printStackTrace();
+			    } catch (IOException e) {
+			      e.printStackTrace();
+			    }
+		
+		}
 			
 	/* La Fonction a pour but de mélanger le tableau  en échangeant la position des pieces entre elle et en les rotant */
 		public void fctMelangeur(){
-			int i,j; 
+			int i,j,k,l; 
 			Piece swap;
 			
 			/* Mélange les pièces entre eux */
-			for(int k=0;k<=16;k++){
+			for(int m=0;m<=16;m++){
 				i =(int)(Math.random() * 3);//a verifier qu'on obtient aussi 0 sinon il va seulement de 1 à 3
 				j = (int)(Math.random ()* 3);
-					
+				k =  (int)(Math.random ()* 3);
+				l= (int)(Math.random ()* 3);
 				swap = masterTable[i][j];
-				masterTable[i][j] = masterTable[j][i];
-				masterTable[j][i] = swap;
+				masterTable[i][j] = masterTable[k][l];
+				masterTable[k][l] = swap;
 			}
 			
 		/* Fait roter toutes les pièces aux hasard*/
@@ -187,12 +233,14 @@ public class MasterTable {
 			for(i = 0 ; i<4; i++){
 				for(j = 0 ; j<4; j++){
 					/*fait tourner la pièce un nombre x fois*/
-					for(int l = 0 ; l < (i =(int)(Math.random() * 3)) ; l++)
-						fctPieceRetourner( masterTable[i][j] );
+					for(int m = (int)(Math.random() * 3) ; m >=0 ; m--)
+						masterTable[i][j].fctPieceRetourner();
 				}
 			}
 			
 		}
+		
+		
 	}
 	
 	
