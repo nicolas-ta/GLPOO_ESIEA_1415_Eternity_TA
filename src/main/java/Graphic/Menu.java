@@ -14,19 +14,13 @@ import javax.swing.JRadioButtonMenuItem;
 
 public class Menu extends JFrame {
   private JMenuBar menuBar = new JMenuBar();
-  private JMenu test1 = new JMenu("Jeu");
-  private JMenu test2 = new JMenu("Highscores");
+  private JMenu Jeu = new JMenu("Jeu");
+  private JMenu Highscores = new JMenu("Highscores");
 
-  private JMenuItem item1 = new JMenuItem("Nouvelle partie");
-  private JMenuItem item2 = new JMenuItem("Sauvegarder la partie");
-  private JMenuItem item3 = new JMenuItem("Charger la partie");
-  private JMenuItem item4 = new JMenuItem("Quitter le jeu");
-
-  private JCheckBoxMenuItem jcmi1 = new JCheckBoxMenuItem("Choix 1");
-  private JCheckBoxMenuItem jcmi2 = new JCheckBoxMenuItem("Choix 2");
-
-  private JRadioButtonMenuItem jrmi1 = new JRadioButtonMenuItem("Radio 1");
-  private JRadioButtonMenuItem jrmi2 = new JRadioButtonMenuItem("Radio 2");
+  private JMenuItem Nouvelle = new JMenuItem("Nouvelle partie");
+  private JMenuItem Save = new JMenuItem("Sauvegarder la partie");
+  private JMenuItem Load = new JMenuItem("Charger la partie");
+  private JMenuItem Quit = new JMenuItem("Quitter le jeu");
 
   public static void main(String[] args){
     Menu zFen = new Menu();
@@ -36,35 +30,23 @@ public class Menu extends JFrame {
 
 
     //On initialise nos menus      
-    this.test1.add(item1);
+    this.Jeu.add(Nouvelle);
 
 
-    //On met nos radios dans un ButtonGroup
-    ButtonGroup bg = new ButtonGroup();
-    bg.add(jrmi1);
-    bg.add(jrmi1);
-    //On présélectionne la première radio
-    jrmi1.setSelected(true);
-
-
-
-    //Ajout du sous-menu dans notre menu
-    //Ajout d'un séparateur
-
-    item2.addActionListener(new ActionListener(){
+    Quit.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent arg0) {
         System.exit(0);
       }        
     });
-    this.test1.add(item2);  
-    this.test1.add(item3);
-    this.test1.addSeparator();
-    this.test1.add(item4);
+    this.Jeu.add(Save);  
+    this.Jeu.add(Load);
+    this.Jeu.addSeparator();
+    this.Jeu.add(Quit);
 
     //L'ordre d'ajout va déterminer l'ordre d'apparition dans le menu de gauche à droite
     //Le premier ajouté sera tout à gauche de la barre de menu et inversement pour le dernier
-    this.menuBar.add(test1);
-    this.menuBar.add(test2);
+    this.menuBar.add(Jeu);
+    this.menuBar.add(Highscores);
     this.setJMenuBar(menuBar);
     
     this.setTitle("Eternity Game");
