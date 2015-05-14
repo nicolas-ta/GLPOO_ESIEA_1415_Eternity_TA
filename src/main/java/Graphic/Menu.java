@@ -1,5 +1,7 @@
 package Graphic;
 
+import Initialisation.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,8 +38,24 @@ public class Menu extends JFrame {
     Quit.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent arg0) {
         System.exit(0);
-      }        
+      }
+      
     });
+    
+    Save.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent arg0) {
+        	MasterTable.fctSauvegarder();
+        }
+        
+      }); 
+    
+    Load.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent arg0) {
+        	MasterTable.fctRestaurer();
+        }
+        
+      }); 
+    
     this.Jeu.add(Save);  
     this.Jeu.add(Load);
     this.Jeu.addSeparator();
