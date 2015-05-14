@@ -14,14 +14,13 @@ import javax.swing.JRadioButtonMenuItem;
 
 public class Menu extends JFrame {
   private JMenuBar menuBar = new JMenuBar();
-  private JMenu test1 = new JMenu("Fichier");
-  private JMenu test1_2 = new JMenu("Sous ficher");
-  private JMenu test2 = new JMenu("Edition");
+  private JMenu test1 = new JMenu("Jeu");
+  private JMenu test2 = new JMenu("Highscores");
 
-  private JMenuItem item1 = new JMenuItem("Ouvrir");
-  private JMenuItem item2 = new JMenuItem("Fermer");
-  private JMenuItem item3 = new JMenuItem("Lancer");
-  private JMenuItem item4 = new JMenuItem("Arrêter");
+  private JMenuItem item1 = new JMenuItem("Nouvelle partie");
+  private JMenuItem item2 = new JMenuItem("Sauvegarder la partie");
+  private JMenuItem item3 = new JMenuItem("Charger la partie");
+  private JMenuItem item4 = new JMenuItem("Quitter le jeu");
 
   private JCheckBoxMenuItem jcmi1 = new JCheckBoxMenuItem("Choix 1");
   private JCheckBoxMenuItem jcmi2 = new JCheckBoxMenuItem("Choix 2");
@@ -39,11 +38,7 @@ public class Menu extends JFrame {
     //On initialise nos menus      
     this.test1.add(item1);
 
-    //On ajoute les éléments dans notre sous-menu
-    this.test1_2.add(jcmi1);
-    this.test1_2.add(jcmi2);
-    //Ajout d'un séparateur
-    this.test1_2.addSeparator();
+
     //On met nos radios dans un ButtonGroup
     ButtonGroup bg = new ButtonGroup();
     bg.add(jrmi1);
@@ -51,21 +46,20 @@ public class Menu extends JFrame {
     //On présélectionne la première radio
     jrmi1.setSelected(true);
 
-    this.test1_2.add(jrmi1);
-    this.test1_2.add(jrmi2);
+
 
     //Ajout du sous-menu dans notre menu
-    this.test1.add(this.test1_2);
     //Ajout d'un séparateur
-    this.test1.addSeparator();
+
     item2.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent arg0) {
         System.exit(0);
       }        
     });
     this.test1.add(item2);  
-    this.test2.add(item3);
-    this.test2.add(item4);
+    this.test1.add(item3);
+    this.test1.addSeparator();
+    this.test1.add(item4);
 
     //L'ordre d'ajout va déterminer l'ordre d'apparition dans le menu de gauche à droite
     //Le premier ajouté sera tout à gauche de la barre de menu et inversement pour le dernier
