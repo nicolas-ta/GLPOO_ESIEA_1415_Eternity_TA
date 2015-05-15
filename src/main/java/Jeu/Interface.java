@@ -68,7 +68,7 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 	private void init_terrain(){
 		
 		PlateauJeu = new JButton[4][4];
-	    Terrain = new Plateau(4,4,100);	
+	    Terrain = new Plateau(4,4,150);	
 		
 		//Creation des bouton des piece du plateau
 		for(int i=0; i<4 ; i++){
@@ -76,7 +76,7 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 				//bouton
 				PlateauJeu[i][j] = new JButton();			    
 
-				PlateauJeu[i][j].setBounds(55+5*i+90*i, 205+5*j+90*j, 100,100);
+				PlateauJeu[i][j].setBounds(211+10*i+140*i, 125+5*j+140*j, 150,150);
 				PlateauJeu[i][j].addActionListener(this); 
 				PlateauJeu[i][j].setContentAreaFilled(false); 
 				PlateauJeu[i][j].addMouseListener(this); 
@@ -84,11 +84,12 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 				panel.add(PlateauJeu[i][j]);
 				
 				
-				Terrain.pieces[i][j].setBounds(55+5*i+90*i, 205+5*j+90*j, 100,100);	
+				Terrain.pieces[i][j].setBounds(211+10*i+140*i, 125+5*j+140*j, 150,150);	
 				panel.add(Terrain.pieces[i][j]);
 			}
 		}		
 	}
+	
 	
 	
 	private void init_reserve(){
@@ -102,26 +103,44 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 		Reserve.Lecture();
 		
 		//Creation des bouton des pieces du Reserve
-	    for(int i=0; i<4 ; i++){
+	    for(int i=0; i<2 ; i++){
 			
 	    	for(int j=0; j<4 ; j++){		
 				
 				//bouton
 				
 				Puzzle[i][j] = new JButton();			
-				Puzzle[i][j].setBounds(580+55*i+50*i, 205+55*j+50*j, 65,65); 
+				Puzzle[i][j].setBounds(25+55*i+50*i, 205+55*j+70*j, 65,65); 
 				Puzzle[i][j].addActionListener(this); 
 			    Puzzle[i][j].setContentAreaFilled(false);	
 			    Puzzle[i][j].addMouseListener(this); 	
 			    panel.add(Puzzle[i][j]);
 			    
 			   
-			    Reserve.pieces[i][j].setBounds(580+55*i+50*i, 205+55*j+50*j, 65,65);	
+			    Reserve.pieces[i][j].setBounds(25+55*i+50*i, 205+55*j+70*j, 65,65);	
 			    panel.add(Reserve.pieces[i][j]);
 			}
 		
 	    }	 
-     
+ for(int i=2; i<4 ; i++){
+			
+	    	for(int j=0; j<4 ; j++){		
+				
+				//bouton
+				
+				Puzzle[i][j] = new JButton();			
+				Puzzle[i][j].setBounds(620+55*i+50*i, 205+55*j+70*j, 65,65); 
+				Puzzle[i][j].addActionListener(this); 
+			    Puzzle[i][j].setContentAreaFilled(false);	
+			    Puzzle[i][j].addMouseListener(this); 	
+			    panel.add(Puzzle[i][j]);
+			    
+			   
+			    Reserve.pieces[i][j].setBounds(620+55*i+50*i, 205+55*j+70*j, 65,65);	
+			    panel.add(Reserve.pieces[i][j]);
+			}
+		
+	    }	 
 	}
 		
 	
