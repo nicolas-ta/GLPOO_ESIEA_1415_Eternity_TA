@@ -45,16 +45,15 @@ public class Piece extends JComponent {
 		
 	//SWAP FUNCTION
 	public void Echange(Piece piece2)	{
-		Piece piece3 = new Piece(size.x,piece2.faces[0], piece2.faces[1], piece2.faces[2], piece2.faces[3]);
-		piece2.faces[0]=this.faces[0];
-		piece2.faces[1]=this.faces[1];
-		piece2.faces[2]=this.faces[2];
-		piece2.faces[3]=this.faces[3];
-
-		this.faces[0]=piece3.faces[0];
-		this.faces[1]=piece3.faces[1];
-		this.faces[2]=piece3.faces[2];
-		this.faces[3]=piece3.faces[3];
+		int swap;
+		
+		for(int i = 0; i<4;i++){
+			swap = piece2.faces[i];
+			piece2.faces[i] = this.faces[i];
+			this.faces[i] = swap;
+		}
+		
+		
 	}
 	
 
