@@ -1,0 +1,6 @@
+type id_face couleur
+B 1 noir
+F 2 Bleue
+F 3 Jaune
+F 4 Violet
+F 5 Orange
