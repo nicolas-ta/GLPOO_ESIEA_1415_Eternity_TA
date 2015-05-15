@@ -1,40 +1,41 @@
 package Jeu;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
+public class Interface extends JFrame implements ActionListener,MouseListener{
+	
+	
 
-public class Interface extends JFrame implements KeyListener,ActionListener,MouseListener{
 	
-	
-	private int size = 4;
-	
-	private static int score=9999;
-	private JPanel panel;
-	private JFrame frame;
-	private JButton begin;
-	private JButton restart;
-	private JButton Rotate;
-	private JLabel time = new JLabel("00:00");
-	private JButton[][] PlateauJeu;
-	private JButton[][] Puzzle;
+	private static int coups=0;
+	private static int jeu_init=0;
+	private static int  score= 10000;
+	private static JPanel panel;
+	private static JFrame frame;
+	private static JButton begin;
+	private static JButton load;
+	private static JButton Rotate;
+	private static JButton save;
+	//private static JButton rules;
+	private static JLabel time = new JLabel("00:00");
+	private static JLabel coup = new JLabel("Coups joués = " + coups);
+	private static JLabel scoring = new JLabel("Score = "+ score);
+//	private static JLabel regles = new JLabel("Les regles");
+
+	private static JButton[][] PlateauJeu;
+	private static JButton[][] Puzzle;
 	
 	
 	Plateau Terrain;
@@ -43,152 +44,254 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 	
 	//On mettra la fonction chrono de TArlouze
    
-	Timer timer1;
-    int var_time = 0;
+	Timer temps;
+    int compteur = 0;
+  
     ActionListener action_timer = new ActionListener()  {
 		  public void actionPerformed(ActionEvent e1)  {
-			  // +1 et conversion en min sec
 			  
-			  var_time++;				  
-			  int min = var_time/60;
-	          int sec = var_time - (min*60);
+			if(jeu_init==0){	temps.stop(); }
+		
+	
+					  
+			  int min = compteur/60;
+	          int sec = compteur- (min*60);
 	          String sm = Integer.toString(min);
 	          if (min < 10){ sm = "0" + Integer.toString(min);}
 	          String ss = Integer.toString(sec);
 	          if (sec < 10){ ss = "0" + Integer.toString(sec);}
-			  
+	     	 compteur++;	
+	 
 	          //Actualiser le JLabel
-			  time.setText(sm+":"+ss);		 
+	     	 scoring.setText("Score = "+score);
+			  time.setText(sm+":"+ss);		
+			  coup.setText("Coups joués = "+coups);
+		    	 score= 10000 - compteur*10 - coups*10;
+		 //   	regles.setText("Vous devez placer les pièces de la réserve sur le plateau de sorte à ce que les couleurs d'une pièce soit les mêmes que les couleurs adjacentes des autres pièces."+" Pour cela, faites glisser et lachez les pièces sur le plateau et faites tourner les pièces en cliquant dessus."+ "Moins vous userez de mouvement et de temps et plus votre score sera élevée. Amusez vous bien :)");	  
+			
 		 }
      };		 
      
  	//Remise a zero du timer
  	private void ResetTimer(){
- 		timer1.stop(); 
- 		timer1 = new Timer(1000, action_timer);		
- 		timer1.start();  
- 		var_time = -1;
+ 		temps.stop(); 
+ 		temps = new Timer(1000, action_timer);		
+ 		temps.start();  
+ 		compteur = 0;
+ 		coups=0;
+ 		
+ 		
  	}	
 	
 
-	private void init_terrain(int x, int y){
+	private void init_terrain(){
 		
-		PlateauJeu = new JButton[size][size];
-	    Terrain = new Plateau(size,size,100);	
+		PlateauJeu = new JButton[4][4];
+	    Terrain = new Plateau(4,4,150);	
 		
 		//Creation des bouton des piece du plateau
-		for(int i=0; i<x ; i++){
-			for(int j=0; j<y ; j++){	
+		for(int i=0; i<4 ; i++){
+			for(int j=0; j<4 ; j++){	
 				//bouton
 				PlateauJeu[i][j] = new JButton();			    
 
-				PlateauJeu[i][j].setBounds(5+5*i+100*i, 5+5*j+100*j, 100,100);
+				PlateauJeu[i][j].setBounds(211+10*i+140*i, 125+5*j+140*j, 150,150);
+				
 				PlateauJeu[i][j].addActionListener(this); 
+				
 				PlateauJeu[i][j].setContentAreaFilled(false); 
+				
 				PlateauJeu[i][j].addMouseListener(this); 
 			
 				panel.add(PlateauJeu[i][j]);
 				
 				
-				Terrain.pieces[i][j].setBounds(5+5*i+100*i, 5+5*j+100*j, 100,100);	
+				Terrain.pieces[i][j].setBounds(211+10*i+140*i, 125+5*j+140*j, 150,150);	
 				panel.add(Terrain.pieces[i][j]);
 			}
 		}		
 	}
 	
 	
-	private void init_reserve(int x, int y){
+	
+	private void init_reserve(){
 		
-		Reserve = new Plateau(size,size,50);	
-		Puzzle = new JButton[size][size];
+		Reserve = new Plateau(4,4,65);	
+		Puzzle = new JButton[4][4];
 			
 		
-		
-		//Peut �tre a modif, pense qu'il y a une erreur
-		Reserve.Lecture();
+	Reserve.Lecture();
 		
 		//Creation des bouton des pieces du Reserve
-	    for(int i=0; i<x ; i++){
+	    for(int i=0; i<2 ; i++){
 			
-	    	for(int j=0; j<y ; j++){		
+	    	for(int j=0; j<4 ; j++){		
 				
 				//bouton
 				
-				Puzzle[i][j] = new JButton();			
-				Puzzle[i][j].setBounds(440+5*i+50*i, 205+5*j+50*j, 50,50); 
+				Puzzle[i][j] = new JButton();		
+				
+				Puzzle[i][j].setBounds(25+55*i+50*i, 205+55*j+70*j, 65,65); 
+				
 				Puzzle[i][j].addActionListener(this); 
+				
 			    Puzzle[i][j].setContentAreaFilled(false);	
+			    
 			    Puzzle[i][j].addMouseListener(this); 	
+			    
+			    
 			    panel.add(Puzzle[i][j]);
 			    
 			   
-			    Reserve.pieces[i][j].setBounds(440+5*i+50*i, 205+5*j+50*j, 50,50);	
+			    Reserve.pieces[i][j].setBounds(25+55*i+50*i, 205+55*j+70*j, 65,65);	
+			    
 			    panel.add(Reserve.pieces[i][j]);
 			}
 		
 	    }	 
-     
+ for(int i=2; i<4 ; i++){
+			
+	    	for(int j=0; j<4 ; j++){		
+				
+				//bouton
+				
+				Puzzle[i][j] = new JButton();		
+				
+				Puzzle[i][j].setBounds(620+55*i+50*i, 205+55*j+70*j, 65,65); 
+				
+				Puzzle[i][j].addActionListener(this); 
+				
+			    Puzzle[i][j].setContentAreaFilled(false);	
+			    
+			    Puzzle[i][j].addMouseListener(this); 	
+			    
+			    panel.add(Puzzle[i][j]);
+			    
+			    
+			   
+			    Reserve.pieces[i][j].setBounds(620+55*i+50*i, 205+55*j+70*j, 65,65);
+			    
+			    panel.add(Reserve.pieces[i][j]);
+			}
+		
+	    }	 
 	}
 		
 	
-private void Debut(){	
+public void Debut(){	
 		
-		//Creation de la fenetre
 
-		frame = new JFrame("Eternity Game");  
+		frame = new JFrame("Jeu eternity GLPOO 2014 2015 par RAMRANY GNARESWARAN DONDIN GULL WAN FAGNEN NAVARATNAM");
+		
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 	    
+	    
 	    panel = (JPanel)frame.getContentPane();  
+	    
 	    panel.setLayout(null);
 	    
-	    //Creation des object graphique
-	//    System.out.println("Creation des object graphique");	
-	    
-
-		Font font = new Font("Arial",Font.BOLD,33);
-		time.setFont(font);		
-		time.setBounds(505,30,500,30);	
-	
-	// Start
-		begin = new JButton("Commencer");
-	    begin.addActionListener(this);
-		begin.setBounds(440, 150, 215,30);
+		panel.setBackground(new Color(186,44,44));
 		
-	// Option qu'on devra integrer dans le menu on mettant une touche restart par exemple
-		//bouton restart
-	    restart = new JButton("Recommencer la partie");	 
-        restart.addActionListener(this);
-        restart.setBounds(440, 85, 215,30);
+
+
+		Font serif = new Font("Sans Serif", Font.CENTER_BASELINE,12);
+		
+
+
+		
+		Font fontScore = new Font("Arial", Font.BOLD,30);
+		scoring.setFont(fontScore);		
+		
+		scoring.setBounds(280,10,500,30);	
+		
+
+		time.setFont(fontScore);		
+		
+		time.setBounds(500,40,500,30);	
+		
+		
+		coup.setFont(fontScore);
+		
+		
+		coup.setBounds(500,10,500,30);
+		
+
+		
+	
+		
+		//Bouton Start
+		Font fontStart = new Font("Sans Serif", Font.BOLD,72);
+		
+		 begin = new JButton("Commencer");	
+		 
+		 begin.addActionListener(this);
+		 
+		 
+		 begin.setFont(fontStart);
+		 
+		 begin.setBounds(25, 84, 975,632);
+		 
+		 begin.setBackground(Color.DARK_GRAY);
+		 
+		 begin.setForeground(Color.BLACK);
+    
+      
+        //bouton charger
+        load = new JButton("Charger la partie");
+        
+        load.addActionListener(this);
+        
+        load.setFont(serif);
+        
+        load.setBounds(312, 85, 215,30);
+        
+        load.setBackground(Color.lightGray);
+        
+        
+        //bouton sauvegarder
+        save = new JButton("Sauvegarder la partie");
+        
+        save.addActionListener(this);
+        
+        save.setFont(serif);
+        
+        save.setBounds(512, 85, 215,30);
+        
+        save.setBackground(Color.lightGray);
+        
         
         //On ajoute tout sa a la page
         panel.add(time);
-        panel.add(restart);             
-        panel.add(begin);
-      
+        
+        panel.add(scoring);
+        
+        panel.add(coup);
+        
+        panel.add(begin);   
+  //      panel.add(rules);
+      //  panel.add(load);
+     //   panel.add(save); annulé
+        
 	}
 	
 
+
 	public Interface() {
-		
-		//Debut nouvelle partie
 
 		Debut();
-		new Menu();
 		
-	   init_terrain(size,size);
-	init_reserve(size,size);
-        
-        
-        frame.setSize(677, 463);
+		
+	    init_terrain();
+	 init_reserve();
+
+        frame.setSize(1024, 768);
 		frame.setVisible(true);	
+		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-	    frame.setLocationRelativeTo(null);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setResizable(false);
-	    setAlwaysOnTop(false);
-	    frame.setContentPane(panel);
-	    frame.setVisible(true);	
-		timer1 = new Timer(1000, action_timer);		
-		timer1.start();     
+		
+				
+		temps = new Timer(1000, action_timer);		
+	
+		temps.start();     
 		
 	}
 	
@@ -196,23 +299,21 @@ private void Debut(){
 	
 	//Evenement	
 	private Piece last=null;
-	public void actionPerformed(ActionEvent e) {	
-		
-		
-		//Pour débuter la partie
-		/*if(e.getSource() == begin){
-			
-			 init_reserve(size,size);
-		
-		}*/
+	public void actionPerformed(ActionEvent e) {			
 
 		
 		//Pour chaque piece du Terrain
+		
 		for(int i=0; i<4 ; i++){
+			
 			for(int j=0; j<4 ; j++){	
+				
 				if(e.getSource() == PlateauJeu[i][j]){
-					Terrain.pieces[i][j].rotationGauche();
+					
+					Terrain.pieces[i][j].rotationDroite();
+					
 					Terrain.verification();
+					
 					last = Terrain.pieces[i][j];
 				}				
 			}
@@ -220,21 +321,36 @@ private void Debut(){
 				
 		
 		//Pour chaque piece de la Reserve
+
 		for(int i=0; i<4 ; i++){
 			
 			for(int j=0; j<4 ; j++){	
 			
 				if(e.getSource() == Puzzle[i][j]){
 				
-					Reserve.pieces[i][j].rotationGauche();
+					Reserve.pieces[i][j].rotationDroite();
+					
 					Terrain.verification();
+					
 					last = Reserve.pieces[i][j];
-				
+					
+			
 				}				
 			
 			}
 		
 		}	
+		
+		// Si bouton sauvegarde
+	if(e.getSource() == save){
+			
+			if (last != null){
+			
+				Reserve.fctSauvegarder();
+			
+				}	
+		
+			}	
 		
 		
 		// Si bouton Rotate presser	
@@ -242,47 +358,138 @@ private void Debut(){
 			
 			if (last != null){
 			
-					last.rotationGauche();	
+					last.rotationDroite();
+					
 					last.update();
+					
 				}	
 		
-			}					
+			}	
+		
+		String texte;
+	       texte=begin.getText();
+	       Font serif = new Font("Sans Serif", Font.CENTER_BASELINE,12);
+
+
+	       if(e.getSource() == begin){
+	    	   
+	       if(texte.compareTo("Commencer")==0)
+	       {
+	    	   jeu_init=1;
+	    		temps.start(); 
+			
+	    		System.out.println("C'est parti.");
+	    		
+	    	   begin.setText("Recommencer la partie");
+	    	   
+	    	   begin.setBounds(380, 85, 215,30);
+	  		 
+	    		 begin.setBackground(Color.lightGray);
+	    		 
+	    		 begin.setForeground(Color.white);
+	    		 
+	    		 begin.setFont(serif);
 	
-		// Si bouton Restart presser
-		if(e.getSource() == restart){
-	//		System.out.println("On recommence du debut! .");				
-			Terrain.init();		
-			//Reserve.init(); //pourquoi tu as mis �a en commentaire ????	
-			Reserve.Lecture();
-			ResetTimer();
+	    	   
+	       }
+	      
+	       else if(texte.compareTo("Recommencer la partie")==0)
+	       {
+		
+	    	   
+				Terrain.init();		
+				
+				Reserve.Lecture();
+				
+				ResetTimer();
+				
+		        
+		    				
+	       }
+	       
+	       }
+	       
+	       /*
+	       
+	       //regles du jeu
+	       
+	      
+	       String textrules;
+			Font fontStart = new Font("Sans Serif", Font.BOLD,42);
+	      textrules=rules.getText();
+	       if(e.getSource() == rules){
+	       if(textrules.compareTo("Règles du jeu")==0)
+	       {
+	    	 
+	    		temps.stop(); 
+			
+	    
+	    		   rules.setText("Rêgles");
+	    			  rules.setBounds(25,100, 975,632);
+	    		 rules.setBackground(Color.DARK_GRAY);
+	    		 rules.setForeground(Color.BLACK);
+	    	      panel.add(regles);
+	    	   
+	       }
+	      
+	       else if(textrules.compareTo("Règles du jeu")!=0)
+	       {
+	    	   rules.setBounds(512, 85, 215,30);
+	    	   rules.setText("Règles du jeu");
+			temps.start();
+			
+		    
+		    
+				
+	       }
+	       
+	       }
+	       
+	       */
+	       
+	       
+	       
+	   	}
+
+public void mouseReleased(MouseEvent e) {
+		
+		if (stop != null && start != null){
+	//		System.out.println("Piece Relachee!");
+			stop.Echange(start);
+			stop.update();
+			start.update();	
+			last = stop;
+			coups++;
+			Terrain.verification();
 		}
+		stop = null;
+		start = null;	
 	}
 	
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	
+	public void mouseEntered(MouseEvent e) {
 		
-	}
+//Pour chaque piece du Terrain
+for(int i=0; i<4 ; i++){
+for(int j=0; j<4 ; j++){	
+if(e.getSource() == PlateauJeu[i][j]){
+	stop = Terrain.pieces[i][j];
+}				
+}
+}
 
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/*public void keyPressed(KeyEvent arg0) {
-		int key = arg0.getKeyCode();	
-	}*/
-
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub		
-	}
-	
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub	
-	}
-	
-
-	private Piece start = null;
+//Pour chaque piece de la Reserve
+for(int i=0; i<4 ; i++){
+for(int j=0; j<4 ; j++){	
+if(e.getSource() == Puzzle[i][j]){
+	stop = Reserve.pieces[i][j];
+}				
+}
+}
+}
 	public void mousePressed(MouseEvent e) {
+		
+
 		
 
 		
@@ -296,6 +503,7 @@ private void Debut(){
 		}	
 		
 		//Pour chaque piece du Reserve
+		
 		for(int i=0; i<4 ; i++){
 			for(int j=0; j<4 ; j++){	
 				if(e.getSource() == Puzzle[i][j]){
@@ -303,131 +511,36 @@ private void Debut(){
 				}				
 			}
 		}	
+	
 		if (start != null){
 	//		System.out.println("Piece pressee!");	
 			//setCursor(new Cursor(Cursor.MOVE_CURSOR) );
 		}
 		
+	
 	}
+
+
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub		
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub	
+	}
+	
+
+	private Piece start = null;
+
 	
 	
 		
 	private Piece stop = null;
 	
-	public void mouseReleased(MouseEvent e) {
-		
-		if (stop != null && start != null){
-	//		System.out.println("Piece Relachee!");
-			stop.Echange(start);
-			stop.update();
-			start.update();	
-			last = stop;
-			Terrain.verification();
-		}
-		stop = null;
-		start = null;	
-	}
 	
-	
-	public void mouseEntered(MouseEvent e) {
-								
-				//Pour chaque piece du Terrain
-				for(int i=0; i<4 ; i++){
-					for(int j=0; j<4 ; j++){	
-						if(e.getSource() == PlateauJeu[i][j]){
-							stop = Terrain.pieces[i][j];
-						}				
-					}
-				}
-				
-				//Pour chaque piece du Reserve
-				for(int i=0; i<4 ; i++){
-					for(int j=0; j<4 ; j++){	
-						if(e.getSource() == Puzzle[i][j]){
-							stop = Reserve.pieces[i][j];
-						}				
-					}
-				}
-
-	}
-	
-	
-	
-/*	public class Menu extends JFrame {
-		  private JMenuBar menuBar = new JMenuBar();
-		  private JMenu Jeu = new JMenu("Jeu");
-		  private JMenu Highscores = new JMenu("Highscores");
-
-		  private JMenuItem Nouvelle = new JMenuItem("Nouvelle partie");
-		  private JMenuItem Save = new JMenuItem("Sauvegarder la partie");
-		  private JMenuItem Load = new JMenuItem("Charger la partie");
-		  private JMenuItem Quit = new JMenuItem("Quitter le jeu");
-		  
-			
-
-		  public void main(String[] args){
-		    Menu zFen = new Menu();
-		  }
-
-		  public Menu(){
-
-
-		    //On initialise nos menus      
-		    this.Jeu.add(Nouvelle);
-
-
-		    Quit.addActionListener(new ActionListener(){
-		      public void actionPerformed(ActionEvent arg0) {
-		        System.exit(0);
-		      }
-		      
-		    });
-		*/    
-	/*	    Save.addActionListener(new ActionListener(){
-		        public void actionPerformed(ActionEvent arg0) {
-		        	MasterTable.fctSauvegarder();
-		        }
-		        
-		      }); */
-		    
-		/*    Load.addActionListener(new ActionListener(){
-		        public void actionPerformed(ActionEvent arg0) {
-		        	MasterTable.fctRestaurer();
-		        }
-		        
-		      }); 
-		    */
-		    
-		/*    this.Jeu.add(Save);  
-		    this.Jeu.add(Load);
-		    this.Jeu.addSeparator();
-		    this.Jeu.add(Quit);
-
-		    //L'ordre d'ajout va d�terminer l'ordre d'apparition dans le menu de gauche � droite
-		    //Le premier ajout� sera tout � gauche de la barre de menu et inversement pour le dernier
-		    this.menuBar.add(Jeu);
-		    this.menuBar.add(Highscores);
-		    this.setJMenuBar(menuBar);
-		    
-		    this.setTitle("Eternity Game");
-		    this.setSize(1280, 768);
-		    this.setLocationRelativeTo(null);
-		    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    setResizable(false);
-		    setAlwaysOnTop(false);
-		    //Instanciation d'un objet JPanel
-		  //  JPanel pan = new JPanel();  
-		//    pan.add(new Panneau());
-		//  pan.add(new PanneauScore());
-		//    pan.add(new PanneauDebut());
-		    
-
-		    
-		//    this.setContentPane(pan);
-		 //   this.setVisible(true);
-		  }
-		}
-
-
-*/
 }
+
+	
+	
+	

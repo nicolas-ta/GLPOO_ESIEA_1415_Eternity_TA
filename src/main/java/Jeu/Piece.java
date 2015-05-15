@@ -47,9 +47,9 @@ public class Piece extends JComponent {
 	public void Echange(Piece piece2)	{
 		Piece piece3 = new Piece(size.x,piece2.faces[0], piece2.faces[1], piece2.faces[2], piece2.faces[3]);
 		piece2.faces[0]=this.faces[0];
-		piece2.faces[1]=this.faces[1];
-		piece2.faces[2]=this.faces[2];
-		piece2.faces[3]=this.faces[3];
+			piece2.faces[1]=this.faces[1];
+			piece2.faces[2]=this.faces[2];
+			piece2.faces[3]=this.faces[3];
 
 		this.faces[0]=piece3.faces[0];
 		this.faces[1]=piece3.faces[1];
@@ -78,10 +78,6 @@ public class Piece extends JComponent {
 		rotate = (rotate+1)%4;
 	}	
 
-	public int Prendre(int nb){
-		return faces[nb];
-	}
-	
 
 	//////////////////////////////////////////////////////////////FONCTION POUR LE COLORIAGE/////////////////////////////////////////////////////
 	public void paintComponent(Graphics g) {
@@ -91,36 +87,45 @@ public class Piece extends JComponent {
 	}
 	
 	private void setColorFace(int face, Graphics g){
-		 switch (face) {
-	         case 0: 
-	        	 	g.setColor(Color.white);
-	                break;
-	         case 1:  
-	        	 	g.setColor(Color.black);
-	         		break;
-	         case 2:  
-	        	 	g.setColor(Color.cyan);
-	         		break;
-	         case 3:  
-	        	 	g.setColor(Color.yellow);
-	         		break;
-	         case 4:  
-	        	 	g.setColor(Color.orange);
-	         		break;
-	         case 5: 
-	        	 	g.setColor(Color.pink);
-	         		break;
-	         default:
-	        	 	g.setColor(Color.black);
-	         		break;
-		 }	 
-	
-	}
+		   switch (face) {
+		          case 0: 
+		            g.setColor(Color.white);
+		                 break;
+		          case 1:  
+		            g.setColor(Color.black);
+		            break;
+		          case 2:  
+		            g.setColor(new Color(54,156,228));
+		            break;
+		          case 3:  
+		            g.setColor(new Color(54,228,185));
+		            break;
+		          case 4:  
+		            g.setColor(new Color(225,228,54));
+		            break;
+		          case 5: 
+		            g.setColor(new Color(210,112,182));
+		            break;
+		          default:
+		            g.setColor(Color.black);
+		            break;
+		   }  
+		 
+		 }
 	
 	public void update() {
 		repaint();		    
 	}
 	
+	public int getFace(int i){
+		return faces[i];
+	}
+	public double getPiecePointX(){
+		return this.size.getX();
+	}
+	public double getPiecePointY(){
+		return this.size.getY();
+	}
 
 	private void build(Graphics g){
 		
@@ -154,21 +159,7 @@ public class Piece extends JComponent {
 	    ((Graphics2D) g).fill(p4);
 		
 	}
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	/*
-	public void FramePiece(Graphics g){
-		  Polygon f = new Polygon();
-	      f.addPoint(0,size.y);
-	      f.addPoint(0,0);
-	      f.addPoint(size.x,0);
-	      f.addPoint(size.x,size.y);
-	      ((Graphics2D) g).draw(f);		
-	}
 
-	*/
-	
 	
 	
 	
