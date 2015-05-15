@@ -1,6 +1,6 @@
 # Pour lancer le programme
 
-Executer Runner.java
+Executer Launcher.java
 
 # Contacts
 
