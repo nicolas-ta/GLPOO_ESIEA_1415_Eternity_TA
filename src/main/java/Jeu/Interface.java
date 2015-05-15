@@ -198,9 +198,9 @@ public void Debut(){
 		 begin = new JButton("Commencer");	
 		 begin.addActionListener(this);
 		 begin.setFont(fontStart);
-		 begin.setBounds(112, 85, 215,30);
-		 begin.setBackground(Color.BLACK);
-		 begin.setForeground(Color.white);
+		 begin.setBounds(362, 270, 300,300);
+		 begin.setBackground(Color.GREEN);
+		 begin.setForeground(Color.BLACK);
         
 		 
         //bouton quit
@@ -320,6 +320,7 @@ public void Debut(){
 				Reserve.Lecture();
 	    		System.out.println("C'est parti.");
 	    	   begin.setText("Recommencer la partie");
+	  		 begin.setBounds(112, 85, 215,30);
 	    		 begin.setBackground(Color.lightGray);
 	    		 begin.setForeground(Color.white);
 			//	Reserve.Lecture();
