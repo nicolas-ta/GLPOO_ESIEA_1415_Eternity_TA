@@ -1,5 +1,6 @@
 package Jeu;
 
+
 import java.awt.Point;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -7,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Plateau {
@@ -28,8 +30,8 @@ public class Plateau {
 	private void Retourner(){
 		for(int i=0; i<size.x ; i++){
 			for(int j=0; j<size.y ; j++){					
-				for(int r=0; r<(int)(Math.random() * (4))  ; r++){	
-					pieces[i][j].rotationDroite();
+				for(int r=0; r<eden(0,4) ; r++){	
+					pieces[i][j].rotationGauche();
 				}									
 			}
 		}		
@@ -60,6 +62,13 @@ public class Plateau {
 	}	
 	public void Lecture() {	
 	
+
+		//Piece coder en dur en attendant la lecture du csv (Lecture();)
+		// noir = 1
+		// cyan = 2
+		// jaune = 3
+		// orange = 4
+		// pink = 5
 		pieces[0][0].Face(1,1,2,4);
 		pieces[1][0].Face(2,1,4,5);
 		pieces[2][0].Face(4,1,4,2);
@@ -84,104 +93,50 @@ public class Plateau {
 		Melanger();
 		
 		//On fait des rotations a la sauce randome			
-		  Retourner();
+		Retourner();
 		
 		
 		/*LECTURE DU CSV*/
 		
-		File face = new File("faces.csv");	
-		File piece = new File("pieces.csv");
+		File face = new File("faces_02.csv");	
+		File piece = new File("pieces_02.csv");
 		Scanner scanner;	
 		try {	
 			
-			scanner = new Scanner (face);
-			scanner.nextLine();
-		//	System.out.println(scanner.nextLine());		
+			scanner = new Scanner (face);		
+			System.out.println(scanner.nextLine());		
 			Face test[] = new Face[5];	
 			for(int i=0; i<5 ; i++){
 				test[i] = new Face(scanner.next().charAt(0),Integer.parseInt(scanner.next()),scanner.next());
 			}
 			
 			scanner = new Scanner (piece);		
-			scanner.nextLine();
-
-	
+			System.out.println(scanner.nextLine());		
+			for(int i=0; i<16 ; i++){
+				/*scanner.next().charAt(0)
+				Integer.parseInt(scanner.next())
+				Integer.parseInt(scanner.next())
+				Integer.parseInt(scanner.next())
+				Integer.parseInt(scanner.next())
+				Integer.parseInt(scanner.next())*/
+			}
 			   
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-	
 		update();
 	
 	}
-	
-	private int eden(int min,int max){			
-			return (int)(Math.random() * (max-min)) + min;		
-			}
-	
-		
-	private void Melanger(){
-		for(int i=0; i<size.x ; i++){
-			for(int j=0; j<size.y ; j++){					
-				pieces[i][j].Echange(pieces[eden(0,4)][eden(0,4)]);					
-			}
-		}
-	}
-		
-	
-	
-	
-	public boolean verification(){	
-		
-		//On verifie que les faces voisine sont les meme
-				for(int i=1; i<size.x-1 ; i++){
-					for(int j=1; j<size.y-1 ; j++){	
-						if(pieces[i][j].faces[0] == 0)
-							return false;
-						else{
-							//On vérifie les bord
-							if(i == 0 && pieces[i][j].faces[0] != 1)
-								return false;
-							if(j == 0 && pieces[i][j].faces[1] != 1)
-								return false;
-							if(i == 3 && pieces[i][j].faces[2] != 1)
-								return false;
-							if(j == 3 && pieces[i][j].faces[3] != 1)
-								return false;
-							
-							
-							//Inutile de vérifier Face 0 et 1 car répétition
-							
-							if(pieces[i][j].faces[2] != pieces[i+1][j].faces[0]){	
-								return false;
-							}	
-							
-							if(pieces[i][j].faces[3] != pieces[i][j+1].faces[1]){	
-								return false;
-							}
-						}
-						
-						
-					}
-				}
-		
-	System.out.println("Vous avez gagné! =D") ;
-		return true;
-		
-	}	
-	
-	public void fctSauvegarder(){
-		
-		
-		System.out.println("ahahahah");
+
+	public  void fctSauvegarder(){
 		DataOutputStream dos;
 		try {
 		      dos = new DataOutputStream(
 		              new BufferedOutputStream(
 		                new FileOutputStream(
-		                  new File("save.txt"))));
+		                  new File("Lm+gbrl_4vr.txt"))));
 		      	
 		      for(int i=0 ; i < 4 ; i++){
 		    	for(int j=0; j < 4 ; j++)  {
@@ -204,6 +159,71 @@ public class Plateau {
 		    }	
 		
 	}
+		
+	private void Melanger(){
+		for(int i=0; i<size.x ; i++){
+			for(int j=0; j<size.y ; j++){					
+				pieces[i][j].Echange(pieces[eden(0,4)][eden(0,4)]);					
+			}
+		}
+	}
+		
+	private int eden(int min,int max){		
+		return (int)(Math.random() * (max-min)) + min;
+	}
+	
+	
+	public boolean verification(){	
+		
+		//On verrifie que toute les case du plateau sont pleine
+		for(int i=0; i<size.x ; i++){
+			for(int j=0; j<size.y ; j++){	
+				if(pieces[i][j].faces[0] == 0){	
+					return false;
+				}			
+			}
+		}
+		
+		//On verrifie que totue les bordure noir sont bien au bord
+		for(int i=0; i<size.x ; i++){				
+				if(pieces[i][0].faces[1] != 1 || pieces[i][size.y-1].faces[3] != 1 ){	
+					return false;
+				}					
+		}	
+		for(int j=0; j<size.y ; j++){				
+			if(pieces[0][j].faces[0] != 1 || pieces[size.x-1][j].faces[2] != 1){	
+				return false;
+			}			
+		}	
+		
+		//On verifie que les faces voisine sont les meme
+		for(int i=1; i<size.x-1 ; i++){
+			for(int j=1; j<size.y-1 ; j++){	
+				
+				if(pieces[i][j].faces[0] != pieces[i-1][j].faces[2]){	
+					return false;
+				}	
+				
+				if(pieces[i][j].faces[2] != pieces[i+1][j].faces[0]){	
+					return false;
+				}
+				
+				if(pieces[i][j].faces[1] != pieces[i][j-1].faces[3]){	
+					return false;
+				}	
+				
+				if(pieces[i][j].faces[3] != pieces[i][j+1].faces[1]){	
+					return false;
+				}
+				
+			}
+		}
+		
+		//C'est gagner :)
+		javax.swing.JOptionPane.showMessageDialog(null,"Bravo, Tu as reussi ce jeu trop styl�eeee !!!"); 
+		return true;
+		
+	}	
 
 }
 
