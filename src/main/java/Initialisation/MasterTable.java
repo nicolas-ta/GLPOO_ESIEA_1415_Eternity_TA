@@ -6,11 +6,11 @@ import java.io.*;
 
 
 public class MasterTable {
-		public Piece masterTable[][] = new Piece[4][4];
-		public Piece restaureTable[][] = new Piece[4][4];
-		public Motif tabMotifRestaure[]= new Motif[4];
-		public int nbColonne = 4;
-		public int nbLigne = 4;
+		public static Piece masterTable[][] = new Piece[4][4];
+		public static Piece restaureTable[][] = new Piece[4][4];
+		public static Motif tabMotifRestaure[]= new Motif[4];
+		public final static int nbColonne = 4;
+		public final static int nbLigne = 4;
 		public int nbCase = nbColonne * nbLigne;
 		//public Motif motiftab[] = new Motif[4];
 		
@@ -127,7 +127,7 @@ public class MasterTable {
 			
 			
 		
-		public void fctSauvegarder(){
+		public static void fctSauvegarder(){
 			DataOutputStream dos;
 			try {
 			      dos = new DataOutputStream(
@@ -164,7 +164,7 @@ public class MasterTable {
 		}
 		
 		
-		public void fctRestaurer(){
+		public static void fctRestaurer(){
 			DataInputStream dis;
 			int a;
 			try {

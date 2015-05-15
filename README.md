@@ -3,18 +3,12 @@
 Attention sinon on contacte Yassine Triki la star montante du freefight
 Dites merci au moins
 
-
-#Lien utiles/important
-Pour faire un tableau contenant les images du jeux : GridLayout
-
-http://docs.oracle.com/javase/7/docs/api/index.html?java/awt/GridLayout.html
-
 #Important : l'avatar à mettre sur Github
 http://faceyourmanga.com   JE REPETE, C'EST IMPORTANT!
 
 # Contacts ( Fumiste Dindon TARLOUZE )
 
-pour contacter le prof: fabmars@gmail.com ( C'est Pour Fabien Marsaud au cas où vous n'avez pas compris )
+pour contacter le prof: fabmars@gmail.com ( C'est Pour Fabien Marsaud au cas où vous n'avez pas compris ).
 
 #Comment importer Github sur éclipse
 1) Copier le lien https://github.com/Forbzz/GLPOO_ESIEA_1415_Eternity_FDT.git 2) Sur eclipse aller sur l'onglet window 3) Show view 4) Other 5) Git 6) Git repository 7) cliquer sur "clone a git repository" 8) Copier le lien dans URL si ça ne se fait pas automatiquement 9) S'authentifier avec son compte GitHub
