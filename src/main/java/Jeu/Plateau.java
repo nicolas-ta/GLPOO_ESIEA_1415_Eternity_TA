@@ -1,13 +1,13 @@
 package Jeu;
 
-import java.awt.Point;
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Scanner;
+import java.awt.Point;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
+
 
 public class Plateau {
 	
@@ -80,39 +80,12 @@ public class Plateau {
 		pieces[2][3].Face(3,2,5,1);
 		pieces[3][3].Face(5,2,1,1);
 								
-		//On melange tout sa a la sauce randome
+		//On melange tout sa a la sauce random
 		Melanger();
 		
-		//On fait des rotations a la sauce randome			
+		//On fait des rotations a la sauce random	
 		  Retourner();
-		
-		
-		/*LECTURE DU CSV*/
-		
-		File face = new File("faces.csv");	
-		File piece = new File("pieces.csv");
-		Scanner scanner;	
-		try {	
 			
-			scanner = new Scanner (face);
-			scanner.nextLine();
-		//	System.out.println(scanner.nextLine());		
-			Face test[] = new Face[5];	
-			for(int i=0; i<5 ; i++){
-				test[i] = new Face(scanner.next().charAt(0),Integer.parseInt(scanner.next()),scanner.next());
-			}
-			
-			scanner = new Scanner (piece);		
-			scanner.nextLine();
-
-	
-			   
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	
 		update();
 	
 	}
@@ -135,30 +108,50 @@ public class Plateau {
 	
 	public boolean verification(){	
 		
-		//On verifie que les faces voisine sont les meme
+		//On verifie la similitude des cases adjacentes
 				for(int i=1; i<size.x-1 ; i++){
+					
 					for(int j=1; j<size.y-1 ; j++){	
+						
 						if(pieces[i][j].faces[0] == 0)
 							return false;
+						
 						else{
+							
 							//On vérifie les bord
+							
 							if(i == 0 && pieces[i][j].faces[0] != 1)
+								
 								return false;
+							
+							
 							if(j == 0 && pieces[i][j].faces[1] != 1)
+								
+								
 								return false;
+							
+							
 							if(i == 3 && pieces[i][j].faces[2] != 1)
+								
+								
 								return false;
+							
+							
 							if(j == 3 && pieces[i][j].faces[3] != 1)
+								
+								
 								return false;
 							
 							
 							//Inutile de vérifier Face 0 et 1 car répétition
 							
 							if(pieces[i][j].faces[2] != pieces[i+1][j].faces[0]){	
+								
 								return false;
 							}	
 							
 							if(pieces[i][j].faces[3] != pieces[i][j+1].faces[1]){	
+								
 								return false;
 							}
 						}
@@ -175,7 +168,7 @@ public class Plateau {
 	public void fctSauvegarder(){
 		
 		
-		System.out.println("ahahahah");
+		System.out.println("ahahahah ça ne marche pas");
 		DataOutputStream dos;
 		try {
 		      dos = new DataOutputStream(
@@ -189,6 +182,7 @@ public class Plateau {
 			    	  dos.writeInt(pieces[i][j].getFace(k));
 			      }
 			      dos.writeDouble(pieces[i][j].getPiecePointX());
+			      
 			      dos.writeDouble(pieces[i][j].getPiecePointY());
 		    	}
 		      }

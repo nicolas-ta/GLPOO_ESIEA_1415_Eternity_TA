@@ -92,6 +92,8 @@ public class Interface extends JFrame implements ActionListener,MouseListener{
 		//Creation des bouton des piece du plateau
 		for(int i=0; i<4 ; i++){
 			for(int j=0; j<4 ; j++){	
+				
+				
 				//bouton
 				PlateauJeu[i][j] = new JButton();			    
 
@@ -107,6 +109,7 @@ public class Interface extends JFrame implements ActionListener,MouseListener{
 				
 				
 				Terrain.pieces[i][j].setBounds(211+10*i+140*i, 125+5*j+140*j, 150,150);	
+				
 				panel.add(Terrain.pieces[i][j]);
 			}
 		}		
@@ -259,7 +262,7 @@ public void Debut(){
         save.setBackground(Color.lightGray);
         
         
-        //On ajoute tout sa a la page
+        //On ajoute tout ça a la page
         panel.add(time);
         
         panel.add(scoring);
@@ -454,7 +457,6 @@ public void Debut(){
 public void mouseReleased(MouseEvent e) {
 		
 		if (stop != null && start != null){
-	//		System.out.println("Piece Relachee!");
 			stop.Echange(start);
 			stop.update();
 			start.update();	
@@ -502,7 +504,7 @@ if(e.getSource() == Puzzle[i][j]){
 			}
 		}	
 		
-		//Pour chaque piece du Reserve
+		//Pour chaque piece de la Reserve
 		
 		for(int i=0; i<4 ; i++){
 			for(int j=0; j<4 ; j++){	
@@ -511,29 +513,24 @@ if(e.getSource() == Puzzle[i][j]){
 				}				
 			}
 		}	
-	
-		if (start != null){
-	//		System.out.println("Piece pressee!");	
-			//setCursor(new Cursor(Cursor.MOVE_CURSOR) );
-		}
+
 		
 	
 	}
 
 
-
+// Quand on ne met pas ça, erreur..
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub		
+	
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub	
+		
 	}
 	
 
 	private Piece start = null;
 
-	
 	
 		
 	private Piece stop = null;
