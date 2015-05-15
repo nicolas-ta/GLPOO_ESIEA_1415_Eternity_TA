@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Interface extends JFrame implements KeyListener,ActionListener,MouseListener{
+public class Interface extends JFrame implements ActionListener,MouseListener{
 	
 	
 
@@ -23,18 +22,20 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 	private static int coups=0;
 	private static int jeu_init=0;
 	private static int  score= 10000;
-	private JPanel panel;
-	private JFrame frame;
-	private JButton begin;
-	private JButton load;
-	private JButton Rotate;
-	private JButton save;
-	private JButton quit;
-	private JLabel time = new JLabel("00:00");
-	private JLabel coup = new JLabel("Coups joués = " + coups);
-	private JLabel scoring = new JLabel("Score = "+ score);
-	private JButton[][] PlateauJeu;
-	private JButton[][] Puzzle;
+	private static JPanel panel;
+	private static JFrame frame;
+	private static JButton begin;
+	private static JButton load;
+	private static JButton Rotate;
+	private static JButton save;
+	private static JButton rules;
+	private static JLabel time = new JLabel("00:00");
+	private static JLabel coup = new JLabel("Coups joués = " + coups);
+	private static JLabel scoring = new JLabel("Score = "+ score);
+	private static JLabel regles = new JLabel("Les regles");
+
+	private static JButton[][] PlateauJeu;
+	private static JButton[][] Puzzle;
 	
 	
 	Plateau Terrain;
@@ -66,6 +67,7 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 			  time.setText(sm+":"+ss);		
 			  coup.setText("Coups joués = "+coups);
 		    	 score= 10000 - compteur*10 - coups*10;
+		    	regles.setText("Vous devez placer les pièces de la réserve sur le plateau de sorte à ce que les couleurs d'une pièce soit les mêmes que les couleurs adjacentes des autres pièces."+" Pour cela, faites glisser et lachez les pièces sur le plateau et faites tourner les pièces en cliquant dessus."+ "Moins vous userez de mouvement et de temps et plus votre score sera élevée. Amusez vous bien :)");	  
 			
 		 }
      };		 
@@ -193,6 +195,10 @@ public void Debut(){
 		coup.setFont(fontScore);
 		coup.setBounds(500,10,500,30);
 		
+
+		
+	
+		
 		//Bouton Start
 		Font fontStart = new Font("Sans Serif", Font.BOLD,72);
 		 begin = new JButton("Commencer");	
@@ -203,12 +209,12 @@ public void Debut(){
 		 begin.setForeground(Color.BLACK);
         
 		 
-        //bouton quit
-        quit = new JButton("Quitter la partie");
-        quit.addActionListener(this);
-        quit.setFont(serif);
-        quit.setBounds(712, 85, 215,30);
-        quit.setBackground(Color.lightGray);
+        //bouton rules
+        rules = new JButton("Règles du jeu");
+        rules.addActionListener(this);
+        rules.setFont(serif);
+        rules.setBounds(512, 85, 215,30);
+        rules.setBackground(Color.lightGray);
         
       
         //bouton charger
@@ -230,9 +236,9 @@ public void Debut(){
         panel.add(scoring);
         panel.add(coup);
         panel.add(begin);   
-        panel.add(quit);
-        panel.add(load);
-        panel.add(save);
+        panel.add(rules);
+      //  panel.add(load);
+     //   panel.add(save);
         
 	}
 	
@@ -272,7 +278,7 @@ public void Debut(){
 		for(int i=0; i<4 ; i++){
 			for(int j=0; j<4 ; j++){	
 				if(e.getSource() == PlateauJeu[i][j]){
-					Terrain.pieces[i][j].rotationGauche();
+					Terrain.pieces[i][j].rotationDroite();
 					Terrain.verification();
 					last = Terrain.pieces[i][j];
 				}				
@@ -288,7 +294,7 @@ public void Debut(){
 			
 				if(e.getSource() == Puzzle[i][j]){
 				
-					Reserve.pieces[i][j].rotationGauche();
+					Reserve.pieces[i][j].rotationDroite();
 					Terrain.verification();
 					last = Reserve.pieces[i][j];
 			
@@ -298,6 +304,16 @@ public void Debut(){
 		
 		}	
 		
+		// Si bouton sauvegarde
+	if(e.getSource() == save){
+			
+			if (last != null){
+			
+				Reserve.fctSauvegarder();
+			
+				}	
+		
+			}	
 		
 		
 		// Si bouton Rotate presser	
@@ -305,7 +321,7 @@ public void Debut(){
 			
 			if (last != null){
 			
-					last.rotationGauche();	
+					last.rotationDroite();	
 					last.update();
 				}	
 		
@@ -314,8 +330,8 @@ public void Debut(){
 		String texte;
 	       texte=begin.getText();
 	       Font serif = new Font("Sans Serif", Font.CENTER_BASELINE,12);
-			Font fontStart = new Font("Sans Serif", Font.BOLD,72);
-	   	if(e.getSource() == begin){
+
+
 	       if(e.getSource() == begin){
 	       if(texte.compareTo("Commencer")==0)
 	       {
@@ -324,7 +340,7 @@ public void Debut(){
 			
 	    		System.out.println("C'est parti.");
 	    	   begin.setText("Recommencer la partie");
-	  		 begin.setBounds(112, 85, 215,30);
+	  		 begin.setBounds(312, 85, 215,30);
 	    		 begin.setBackground(Color.lightGray);
 	    		 begin.setForeground(Color.white);
 	    		 begin.setFont(serif);
@@ -345,23 +361,49 @@ public void Debut(){
 	       }
 	       
 	       }
+	       
+	       //regles du eu
+	       String textrules;
+			Font fontStart = new Font("Sans Serif", Font.BOLD,42);
+	      textrules=rules.getText();
+	       if(e.getSource() == rules){
+	       if(textrules.compareTo("Règles du jeu")==0)
+	       {
+	    	 
+	    		temps.stop(); 
+			
+	    
+	    		   rules.setText("Rêgles");
+	    			  rules.setBounds(25,100, 975,632);
+	    		 rules.setBackground(Color.DARK_GRAY);
+	    		 rules.setForeground(Color.BLACK);
+	    	      panel.add(regles);
+	    	   
+	       }
+	      
+	       else if(textrules.compareTo("Règles du jeu")!=0)
+	       {
+	    	   rules.setBounds(512, 85, 215,30);
+	    	   rules.setText("Règles du jeu");
+			temps.start();
+			
+		    
+		    
+				
+	       }
+	       
+	       }
+	       
+	       
+	       
+	       
+	       
 	   	}
 
 
-	}
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void keyPressed(KeyEvent arg0) {
-		int key = arg0.getKeyCode();	
-	}
 
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub		
