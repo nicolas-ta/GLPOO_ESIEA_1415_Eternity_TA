@@ -6,6 +6,10 @@ Executer Launcher.java
 
 pour contacter le prof: fabmars@gmail.com.
 
+# IMPORTANT
+
+Pensez bien TOUS à mettre votre avatar à créer sur http://www.faceyourmanga.com/editmangatar.php
+
 #Comment importer Github sur éclipse
 1) Copier le lien https:https://github.com/Forbzz/GLPOO_ESIEA_1415_Eternity_TA.git 2) Sur eclipse aller sur l'onglet window 3) Show view 4) Other 5) Git 6) Git repository 7) cliquer sur "clone a git repository" 8) Copier le lien dans URL si ça ne se fait pas automatiquement 9) S'authentifier avec son compte GitHub
 10) cliquer sur next 2 fois à la suite sans rien changé 11) pour directory choisir le workspace (du projet si vous avez déjà commencer le projet) 12) importer le pom.xml avec l'onglet file puis import et "Existing Maven Project"
