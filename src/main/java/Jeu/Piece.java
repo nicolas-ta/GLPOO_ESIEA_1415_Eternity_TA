@@ -102,7 +102,7 @@ public class Piece extends JComponent {
 	        	 	g.setColor(Color.cyan);
 	         		break;
 	         case 3:  
-	        	 	g.setColor(Color.yellow);
+	        	 	g.setColor(Color.green);
 	         		break;
 	         case 4:  
 	        	 	g.setColor(Color.orange);

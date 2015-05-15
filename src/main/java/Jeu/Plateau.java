@@ -94,8 +94,8 @@ public class Plateau {
 		
 		/*LECTURE DU CSV*/
 		
-		File face = new File("faces_02.csv");	
-		File piece = new File("pieces_02.csv");
+		File face = new File("faces.csv");	
+		File piece = new File("pieces.csv");
 		Scanner scanner;	
 		try {	
 			
@@ -187,7 +187,7 @@ public class Plateau {
 		}
 		
 		//C'est gagner :)
-		javax.swing.JOptionPane.showMessageDialog(null,"Bravo, Tu as reussi ce jeu trop styléeeee !!!"); 
+		javax.swing.JOptionPane.showMessageDialog(null,"Bravo, Tu as reussi ce jeu trop stylï¿½eeee !!!"); 
 		return true;
 		
 	}	
