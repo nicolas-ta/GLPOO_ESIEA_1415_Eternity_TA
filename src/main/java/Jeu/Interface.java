@@ -2,6 +2,7 @@ package Jeu;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,19 +21,12 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 	
 
 	
-	private static int coups=0;
-	private static int jeu_init=0;
-	private static int  score= 10000;
+	
 	private JPanel panel;
 	private JFrame frame;
-	private JButton begin;
-	private JButton load;
+	private JButton restart;
 	private JButton Rotate;
-	private JButton save;
-	private JButton quit;
 	private JLabel time = new JLabel("00:00");
-	private JLabel coup = new JLabel("Coups joués = " + coups);
-	private JLabel scoring = new JLabel("Score = "+ score);
 	private JButton[][] PlateauJeu;
 	private JButton[][] Puzzle;
 	
@@ -43,42 +37,31 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 	
 	//On mettra la fonction chrono de TArlouze
    
-	Timer temps;
-    int compteur = 0;
-  
+	Timer timer1;
+    int var_time = 0;
     ActionListener action_timer = new ActionListener()  {
 		  public void actionPerformed(ActionEvent e1)  {
+			  // +1 et conversion en min sec
 			  
-			if(jeu_init==0){	temps.stop(); }
-		
-	
-					  
-			  int min = compteur/60;
-	          int sec = compteur- (min*60);
+			  var_time++;				  
+			  int min = var_time/60;
+	          int sec = var_time - (min*60);
 	          String sm = Integer.toString(min);
 	          if (min < 10){ sm = "0" + Integer.toString(min);}
 	          String ss = Integer.toString(sec);
 	          if (sec < 10){ ss = "0" + Integer.toString(sec);}
-	     	 compteur++;	
-	 
+			  
 	          //Actualiser le JLabel
-	     	 scoring.setText("Score = "+score);
-			  time.setText(sm+":"+ss);		
-			  coup.setText("Coups joués = "+coups);
-		    	 score= 10000 - compteur*10 - coups*10;
-			
+			  time.setText(sm+":"+ss);		 
 		 }
      };		 
      
  	//Remise a zero du timer
  	private void ResetTimer(){
- 		temps.stop(); 
- 		temps = new Timer(1000, action_timer);		
- 		temps.start();  
- 		compteur = 0;
- 		coups=0;
- 		
- 		
+ 		timer1.stop(); 
+ 		timer1 = new Timer(1000, action_timer);		
+ 		timer1.start();  
+ 		var_time = -1;
  	}	
 	
 
@@ -161,16 +144,15 @@ public class Interface extends JFrame implements KeyListener,ActionListener,Mous
 	}
 		
 	
-public void Debut(){	
+private void Debut(){	
 		
-
-	
 		//Creation de la fenetre
 	//	System.out.println("Creation de la fenetre");	
 		frame = new JFrame("Eternity Game");  
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 	    
 	    panel = (JPanel)frame.getContentPane();  
 	    panel.setLayout(null);
+	
 		panel.setBackground(new Color(186,44,44));
 	    
 	   // panel.setBackground(Color.BLUE);
@@ -178,65 +160,27 @@ public void Debut(){
 	//    System.out.println("Creation des object graphique");	
 	    
 
-		Font serif = new Font("Sans Serif", Font.CENTER_BASELINE,12);
+		Font font = new Font("Fixedsys", Font.BOLD,20);
+		time.setFont(font);		
+		time.setBounds(493,30,500,30);	
+	
+	// Option qu'on devra integrer dans le menu on mettant une touche restart par exemple
+		//bouton restart
 		
-
-
-		
-		Font fontScore = new Font("Arial", Font.BOLD,30);
-		scoring.setFont(fontScore);		
-		scoring.setBounds(280,10,500,30);	
-
-		time.setFont(fontScore);		
-		time.setBounds(500,40,500,30);	
-		
-		coup.setFont(fontScore);
-		coup.setBounds(500,10,500,30);
-		
-		//Bouton Start
-		Font fontStart = new Font("Sans Serif", Font.BOLD,12);
-		 begin = new JButton("Commencer");	
-		 begin.addActionListener(this);
-		 begin.setFont(fontStart);
-		 begin.setBounds(362, 270, 300,300);
-		 begin.setBackground(Color.GREEN);
-		 begin.setForeground(Color.BLACK);
-        
-		 
-        //bouton quit
-        quit = new JButton("Quitter la partie");
-        quit.addActionListener(this);
-        quit.setFont(serif);
-        quit.setBounds(712, 85, 215,30);
-        
-      
-        //bouton charger
-        load = new JButton("Charger la partie");
-        load.addActionListener(this);
-        load.setFont(serif);
-        load.setBounds(312, 85, 215,30);
-        
-        //bouton sauvegarder
-        save = new JButton("Sauvegarder la partie");
-        save.addActionListener(this);
-        save.setFont(serif);
-        save.setBounds(512, 85, 215,30);
+	    restart = new JButton("Recommencer la partie");	
+	    Font font2 = new Font("Fixedsys", Font.BOLD,13);
+        restart.addActionListener(this);
+        restart.setFont(font2);
+        restart.setBounds(412, 85, 215,30);
         
         //On ajoute tout sa a la page
         panel.add(time);
-        panel.add(scoring);
-        panel.add(coup);
-        panel.add(begin);   
-        panel.add(quit);
-        panel.add(load);
-        panel.add(save);
-        
+        panel.add(restart);               
+      
 	}
-	
 
 
 	public Interface() {
-
 		
 		//Debut nouvelle partie
 	//	System.out.println("Debut nouvelle partie");	
@@ -244,7 +188,7 @@ public void Debut(){
 		
 		
 	    init_terrain();
-	 //  init_reserve();
+	    init_reserve();
 
         frame.setSize(1024, 768);
 		frame.setVisible(true);	
@@ -252,9 +196,9 @@ public void Debut(){
 		frame.setResizable(false);
 		
 				
-		temps = new Timer(1000, action_timer);		
+		timer1 = new Timer(1000, action_timer);		
 	
-		temps.start();     
+		timer1.start();     
 		
 	}
 	
@@ -278,7 +222,6 @@ public void Debut(){
 				
 		
 		//Pour chaque piece de la Reserve
-		if(jeu_init==1){
 		for(int i=0; i<4 ; i++){
 			
 			for(int j=0; j<4 ; j++){	
@@ -294,7 +237,6 @@ public void Debut(){
 			}
 		
 		}	
-		}
 		
 		
 		// Si bouton Rotate presser	
@@ -306,41 +248,18 @@ public void Debut(){
 					last.update();
 				}	
 		
-			}	
-		
-		String texte;
-	       texte=begin.getText();
-	   	if(e.getSource() == begin){
-	       if(e.getSource() == begin){
-	       if(texte.compareTo("Commencer")==0)
-	       {
-	    	   jeu_init=1;
-	    		temps.start(); 
-				init_reserve();
-				Reserve.Lecture();
-	    		System.out.println("C'est parti.");
-	    	   begin.setText("Recommencer la partie");
-	  		 begin.setBounds(112, 85, 215,30);
-	    		 begin.setBackground(Color.lightGray);
-	    		 begin.setForeground(Color.white);
-			//	Reserve.Lecture();
-	    	   
-	       }
-	      
-	       else if(texte.compareTo("Recommencer la partie")==0)
-	       {
-	    		//		System.out.println("On recommence du debut! .");				
-				Terrain.init();		
-				//Reserve.init(); //pourquoi tu as mis �a en commentaire ????	
-				Reserve.Lecture();
-				ResetTimer();
-	       }
-	       
-	       }
-	   	}
-
-
+			}					
+	
+		// Si bouton Restart presser
+		if(e.getSource() == restart){
+	//		System.out.println("On recommence du debut! .");				
+			Terrain.init();		
+			//Reserve.init(); //pourquoi tu as mis �a en commentaire ????	
+			Reserve.Lecture();
+			ResetTimer();
+		}
 	}
+	
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
@@ -369,8 +288,6 @@ public void Debut(){
 		
 
 		
-
-		
 		//Pour chaque piece du Terrain
 		for(int i=0; i<4 ; i++){
 			for(int j=0; j<4 ; j++){	
@@ -381,7 +298,6 @@ public void Debut(){
 		}	
 		
 		//Pour chaque piece du Reserve
-		if(jeu_init==1){
 		for(int i=0; i<4 ; i++){
 			for(int j=0; j<4 ; j++){	
 				if(e.getSource() == Puzzle[i][j]){
@@ -389,13 +305,11 @@ public void Debut(){
 				}				
 			}
 		}	
-		}
 		if (start != null){
 	//		System.out.println("Piece pressee!");	
 			//setCursor(new Cursor(Cursor.MOVE_CURSOR) );
 		}
 		
-	
 	}
 	
 	
@@ -410,7 +324,6 @@ public void Debut(){
 			stop.update();
 			start.update();	
 			last = stop;
-			coups++;
 			Terrain.verification();
 		}
 		stop = null;
@@ -419,26 +332,26 @@ public void Debut(){
 	
 	
 	public void mouseEntered(MouseEvent e) {
-		
-if(jeu_init==1){	//Pour chaque piece du Terrain
-for(int i=0; i<4 ; i++){
-for(int j=0; j<4 ; j++){	
-if(e.getSource() == PlateauJeu[i][j]){
-	stop = Terrain.pieces[i][j];
-}				
-}
-}
+								
+				//Pour chaque piece du Terrain
+				for(int i=0; i<4 ; i++){
+					for(int j=0; j<4 ; j++){	
+						if(e.getSource() == PlateauJeu[i][j]){
+							stop = Terrain.pieces[i][j];
+						}				
+					}
+				}
+				
+				//Pour chaque piece du Reserve
+				for(int i=0; i<4 ; i++){
+					for(int j=0; j<4 ; j++){	
+						if(e.getSource() == Puzzle[i][j]){
+							stop = Reserve.pieces[i][j];
+						}				
+					}
+				}
 
-//Pour chaque piece de la Reserve
-for(int i=0; i<4 ; i++){
-for(int j=0; j<4 ; j++){	
-if(e.getSource() == Puzzle[i][j]){
-	stop = Reserve.pieces[i][j];
-}				
-}
-}
-}
-}
+	}
 }
 	
 	
