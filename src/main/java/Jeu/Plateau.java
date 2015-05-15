@@ -89,7 +89,7 @@ public class Plateau {
 		Melanger();
 		
 		//On fait des rotations a la sauce randome			
-		Retourner();
+		  Retourner();
 		
 		
 		/*LECTURE DU CSV*/
@@ -99,15 +99,17 @@ public class Plateau {
 		Scanner scanner;	
 		try {	
 			
-			scanner = new Scanner (face);		
-			System.out.println(scanner.nextLine());		
+			scanner = new Scanner (face);
+			scanner.nextLine();
+		//	System.out.println(scanner.nextLine());		
 			Face test[] = new Face[5];	
 			for(int i=0; i<5 ; i++){
 				test[i] = new Face(scanner.next().charAt(0),Integer.parseInt(scanner.next()),scanner.next());
 			}
 			
 			scanner = new Scanner (piece);		
-			System.out.println(scanner.nextLine());		
+			scanner.nextLine();
+		//	System.out.println(scanner.nextLine());		
 			for(int i=0; i<16 ; i++){
 				/*scanner.next().charAt(0)
 				Integer.parseInt(scanner.next())
@@ -122,25 +124,20 @@ public class Plateau {
 			e.printStackTrace();
 		}
 		
+	
 		update();
 	
 	}
 	
+	private int eden(int min,int max){			
+			return (int)(Math.random() * (max-min)) + min;		
+			}
+	
 		
 	private void Melanger(){
-		Piece swap;
-		int k,l;
 		for(int i=0; i<size.x ; i++){
-			for(int j=0; j<size.y ; j++){		
-				  k=(int)(Math.random() * (4));
-				  l = (int)(Math.random() * (4));
-			
-				swap = pieces[i][j];
-				pieces[i][j] = pieces[k][l];
-				pieces[k][l] = swap;
-				
-				
-			//	pieces[i][j].Echange(pieces[eden(0,4)][eden(0,4)]);					
+			for(int j=0; j<size.y ; j++){					
+				pieces[i][j].Echange(pieces[eden(0,4)][eden(0,4)]);					
 			}
 		}
 	}
