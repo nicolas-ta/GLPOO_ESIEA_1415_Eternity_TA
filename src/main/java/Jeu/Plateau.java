@@ -26,7 +26,7 @@ public class Plateau {
 	private void Retourner(){
 		for(int i=0; i<size.x ; i++){
 			for(int j=0; j<size.y ; j++){					
-				for(int r=0; r<eden(0,4) ; r++){	
+				for(int r=0; r<(int)(Math.random() * (4))  ; r++){	
 					pieces[i][j].rotationGauche();
 				}									
 			}
@@ -128,66 +128,62 @@ public class Plateau {
 	
 		
 	private void Melanger(){
+		Piece swap;
+		int k,l;
 		for(int i=0; i<size.x ; i++){
-			for(int j=0; j<size.y ; j++){					
-				pieces[i][j].Echange(pieces[eden(0,4)][eden(0,4)]);					
+			for(int j=0; j<size.y ; j++){		
+				  k=(int)(Math.random() * (4));
+				  l = (int)(Math.random() * (4));
+			
+				swap = pieces[i][j];
+				pieces[i][j] = pieces[k][l];
+				pieces[k][l] = swap;
+				
+				
+			//	pieces[i][j].Echange(pieces[eden(0,4)][eden(0,4)]);					
 			}
 		}
 	}
 		
-	private int eden(int min,int max){		
-		return (int)(Math.random() * (max-min)) + min;
-	}
+	
 	
 	
 	public boolean verification(){	
 		
-		//On verrifie que toute les case du plateau sont pleine
-		for(int i=0; i<size.x ; i++){
-			for(int j=0; j<size.y ; j++){	
-				if(pieces[i][j].faces[0] == 0){	
-					return false;
-				}			
-			}
-		}
-		
-		//On verrifie que totue les bordure noir sont bien au bord
-		for(int i=0; i<size.x ; i++){				
-				if(pieces[i][0].faces[1] != 1 || pieces[i][size.y-1].faces[3] != 1 ){	
-					return false;
-				}					
-		}	
-		for(int j=0; j<size.y ; j++){				
-			if(pieces[0][j].faces[0] != 1 || pieces[size.x-1][j].faces[2] != 1){	
-				return false;
-			}			
-		}	
-		
 		//On verifie que les faces voisine sont les meme
-		for(int i=1; i<size.x-1 ; i++){
-			for(int j=1; j<size.y-1 ; j++){	
-				
-				if(pieces[i][j].faces[0] != pieces[i-1][j].faces[2]){	
-					return false;
-				}	
-				
-				if(pieces[i][j].faces[2] != pieces[i+1][j].faces[0]){	
-					return false;
+				for(int i=1; i<size.x-1 ; i++){
+					for(int j=1; j<size.y-1 ; j++){	
+						if(pieces[i][j].faces[0] == 0)
+							return false;
+						else{
+							//On vérifie les bord
+							if(i == 0 && pieces[i][j].faces[0] != 1)
+								return false;
+							if(j == 0 && pieces[i][j].faces[1] != 1)
+								return false;
+							if(i == 3 && pieces[i][j].faces[2] != 1)
+								return false;
+							if(j == 3 && pieces[i][j].faces[3] != 1)
+								return false;
+							
+							
+							//Inutile de vérifier Face 0 et 1 car répétition
+							
+							if(pieces[i][j].faces[2] != pieces[i+1][j].faces[0]){	
+								return false;
+							}	
+							
+							if(pieces[i][j].faces[3] != pieces[i][j+1].faces[1]){	
+								return false;
+							}
+						}
+						
+						
+					}
 				}
-				
-				if(pieces[i][j].faces[1] != pieces[i][j-1].faces[3]){	
-					return false;
-				}	
-				
-				if(pieces[i][j].faces[3] != pieces[i][j+1].faces[1]){	
-					return false;
-				}
-				
-			}
-		}
 		
 		//C'est gagner :)
-		javax.swing.JOptionPane.showMessageDialog(null,"Bravo, Tu as reussi ce jeu trop styl�eeee !!!"); 
+		//javax.swing.JOptionPane.showMessageDialog(null,"Bravo, Tu as reussi ce jeu trop styl�eeee !!!"); 
 		return true;
 		
 	}	
