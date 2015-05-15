@@ -1,10 +1,12 @@
 package Jeu;
 
 import java.awt.Point;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Plateau {
@@ -27,7 +29,7 @@ public class Plateau {
 		for(int i=0; i<size.x ; i++){
 			for(int j=0; j<size.y ; j++){					
 				for(int r=0; r<(int)(Math.random() * (4))  ; r++){	
-					pieces[i][j].rotationGauche();
+					pieces[i][j].rotationDroite();
 				}									
 			}
 		}		
@@ -58,13 +60,6 @@ public class Plateau {
 	}	
 	public void Lecture() {	
 	
-
-		//Piece coder en dur en attendant la lecture du csv (Lecture();)
-		// noir = 1
-		// cyan = 2
-		// jaune = 3
-		// orange = 4
-		// pink = 5
 		pieces[0][0].Face(1,1,2,4);
 		pieces[1][0].Face(2,1,4,5);
 		pieces[2][0].Face(4,1,4,2);
@@ -109,15 +104,8 @@ public class Plateau {
 			
 			scanner = new Scanner (piece);		
 			scanner.nextLine();
-		//	System.out.println(scanner.nextLine());		
-			for(int i=0; i<16 ; i++){
-				/*scanner.next().charAt(0)
-				Integer.parseInt(scanner.next())
-				Integer.parseInt(scanner.next())
-				Integer.parseInt(scanner.next())
-				Integer.parseInt(scanner.next())
-				Integer.parseInt(scanner.next())*/
-			}
+
+	
 			   
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -179,11 +167,43 @@ public class Plateau {
 					}
 				}
 		
-		//C'est gagner :)
-		//javax.swing.JOptionPane.showMessageDialog(null,"Bravo, Tu as reussi ce jeu trop styl�eeee !!!"); 
+	System.out.println("Vous avez gagné! =D") ;
 		return true;
 		
 	}	
+	
+	public void fctSauvegarder(){
+		
+		
+		System.out.println("ahahahah");
+		DataOutputStream dos;
+		try {
+		      dos = new DataOutputStream(
+		              new BufferedOutputStream(
+		                new FileOutputStream(
+		                  new File("save.txt"))));
+		      	
+		      for(int i=0 ; i < 4 ; i++){
+		    	for(int j=0; j < 4 ; j++)  {
+			      for(int k = 0 ; k < 4 ; k++){
+			    	  dos.writeInt(pieces[i][j].getFace(k));
+			      }
+			      dos.writeDouble(pieces[i][j].getPiecePointX());
+			      dos.writeDouble(pieces[i][j].getPiecePointY());
+		    	}
+		      }
+		      
+		      
+		      dos.close();
+		      
+		      
+		  } catch (FileNotFoundException e) {
+		      e.printStackTrace();
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }	
+		
+	}
 
 }
 
